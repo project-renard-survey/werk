@@ -1,0 +1,8 @@
+.vagrant/
+
+_build/
+blib/
+Build
+MYMETA.*
+
+*.svg
