@@ -6,9 +6,9 @@ package Werk::Scheduler::Linear {
 	with 'MooseX::Log::Log4perl';
 
 	sub schedule {
-		my ( $self, $dag, $context ) = @_;
+		my ( $self, $flow, $context ) = @_;
 
-		foreach my $task ( $dag->graph()->topological_sort() ) {
+		foreach my $task ( $flow->graph()->topological_sort() ) {
 			$self->log()->info(
 				sprintf( 'Executing "%s" of type %s', $task->id(), ref( $task ) )
 			);
@@ -22,3 +22,5 @@ package Werk::Scheduler::Linear {
 }
 
 1;
+
+__END__

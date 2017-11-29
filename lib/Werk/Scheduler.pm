@@ -33,3 +33,5 @@ package Werk::Scheduler {
 }
 
 1;
+
+__END__

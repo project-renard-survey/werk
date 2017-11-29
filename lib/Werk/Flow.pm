@@ -1,4 +1,4 @@
-package Werk::DAG {
+package Werk::Flow {
 	use Moose;
 
 	use Graph;
@@ -27,6 +27,7 @@ package Werk::DAG {
 	);
 
 	with 'Werk::Roles::Graphviz';
+	with 'Werk::Roles::Serialization';
 
 	sub add_deps {
 		my ( $self, $from, @to ) = @_;
@@ -79,3 +80,5 @@ package Werk::DAG {
 }
 
 1;
+
+__END__

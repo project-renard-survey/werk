@@ -43,3 +43,5 @@ package Werk::Task::Shell {
 }
 
 1;
+
+__END__

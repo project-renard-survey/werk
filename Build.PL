@@ -26,6 +26,7 @@ my $builder = Module::Build->new(
 		'MooseX::App' => undef,
 		'MooseX::Log::Log4perl' => undef,
 		'MooseX::Storage' => undef,
+		'Test::Exception' => undef,
 		'Test::More' => undef,
 		'threads::shared' => undef,
 		'threads' => undef,

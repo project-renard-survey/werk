@@ -10,7 +10,7 @@ use Log::Log4perl qw( :easy );
 
 Log::Log4perl->easy_init( $INFO );
 
-require_ok( 'Werk::DAG' );
+require_ok( 'Werk::Flow' );
 require_ok( 'Werk::Context' );
 require_ok( 'Werk::SchedulerFactory' );
 
@@ -20,13 +20,13 @@ require_ok( 'Werk::Task::Die' );
 require_ok( 'Werk::Task::Shell' );
 require_ok( 'Werk::Task::Sleep' );
 
-my $dag = Werk::DAG->new(
+my $flow = Werk::Flow->new(
 	title => 'Data load',
 	description => 'Sample for a simple DAG'
 );
 
-isa_ok( $dag, 'Werk::DAG' );
-can_ok( $dag, qw( add_deps  ) );
+isa_ok( $flow, 'Werk::Flow' );
+can_ok( $flow, qw( add_deps  ) );
 
 {
 	my $load = Werk::Task::Shell->new(
@@ -34,8 +34,15 @@ can_ok( $dag, qw( add_deps  ) );
 		script => 'ls -al',
 	);
 
-	my $enrich = Werk::Task::Sleep->new( id => 'enrich', seconds => 5 );
-	my $reduce = Werk::Task::Sleep->new( id => 'reduce', seconds => 3 );
+	my $enrich = Werk::Task::Sleep->new(
+		id => 'enrich',
+		seconds => 5
+	);
+
+	my $reduce = Werk::Task::Sleep->new(
+		id => 'reduce',
+		seconds => 3
+	);
 
 	my $save = Werk::Task::Code->new(
 		id => 'save',
@@ -43,7 +50,6 @@ can_ok( $dag, qw( add_deps  ) );
 			my ( $context, $parent ) = @_;
 
 			my $load = $context->get_key( 'load' );
-
 			my @lines = map { uc( $_ ) }
 				grep { $_ =~ /^d/ }
 				split( "\n", $load->{stdout} );
@@ -57,12 +63,12 @@ can_ok( $dag, qw( add_deps  ) );
 		seconds => 3,
 	);
 
-	$dag->add_deps( $load, $enrich, $reduce );
-	$dag->add_deps( $reduce, $sleep );
-	$dag->add_deps( $sleep, $save );
-	$dag->add_deps( $enrich, $save );
+	$flow->add_deps( $load, $enrich, $reduce );
+	$flow->add_deps( $reduce, $sleep );
+	$flow->add_deps( $sleep, $save );
+	$flow->add_deps( $enrich, $save );
 
-	$dag->draw( 'simple.svg', 'svg' );
+	$flow->draw( 'simple.svg', 'svg' );
 }
 
 {
@@ -78,7 +84,7 @@ can_ok( $dag, qw( add_deps  ) );
 	isa_ok( $scheduler, 'Werk::Scheduler' );
 	can_ok( $scheduler, qw( schedule ) );
 
-	$scheduler->schedule( $dag, $context );
+	$scheduler->schedule( $flow, $context );
 
 	# use Data::Dumper;
 	# warn( Dumper( $context ) );

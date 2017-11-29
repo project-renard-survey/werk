@@ -5,3 +5,5 @@ package Werk::TaskFactory {
 }
 
 1;
+
+__END__

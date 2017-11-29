@@ -11,3 +11,5 @@ package Werk::Commands::Validate {
 }
 
 1;
+
+__END__

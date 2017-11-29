@@ -15,10 +15,10 @@ package Werk::Scheduler::Parallel {
 	with 'MooseX::Log::Log4perl';
 
 	sub schedule {
-		my ( $self, $dag, $context ) = @_;
+		my ( $self, $flow, $context ) = @_;
 
 		my $stage_index = 0;
-		foreach my $stage ( $dag->get_stages() ) {
+		foreach my $stage ( $flow->get_stages() ) {
 
 			my $batch_index = 0;
 			while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
@@ -63,3 +63,5 @@ package Werk::Scheduler::Parallel {
 }
 
 1;
+
+__END__

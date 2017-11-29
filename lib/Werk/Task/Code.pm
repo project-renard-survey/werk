@@ -9,16 +9,18 @@ package Werk::Task::Code {
 		required => 1,
 	);
 
-	with 'MooseX::Log::Log4perl';
-
 	sub run {
 		my ( $self, $context ) = @_;
 
-		$self->log()->info( 'Executing anonymous code' );
-		return $self->code()->( $context, $self );
+		my $result = $self->code()
+			->( $context, $self );
+
+		return $result;
 	}
 
 	__PACKAGE__->meta()->make_immutable();
 }
 
 1;
+
+__END__

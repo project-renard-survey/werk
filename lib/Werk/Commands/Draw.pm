@@ -11,3 +11,5 @@ package Werk::Commands::Draw {
 }
 
 1;
+
+__END__

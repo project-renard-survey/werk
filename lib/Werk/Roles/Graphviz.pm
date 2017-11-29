@@ -38,3 +38,5 @@ package Werk::Roles::Graphviz {
 }
 
 1;
+
+__END__

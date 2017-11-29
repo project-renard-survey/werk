@@ -11,16 +11,17 @@ require_ok( 'Werk::Task::Shell' );
 
 my $task = Werk::Task::Shell->new(
 	id => 'Shell',
-	script => 'apt-get update',
+	script => 'ls *.PL',
 );
 
 isa_ok( $task, 'Werk::Task' );
 isa_ok( $task, 'Werk::Task::Shell' );
-can_ok( $task, qw( id run ) );
+can_ok( $task, qw( id run script ) );
 
 my $output = $task->run( Werk::Context->new() );
+isa_ok( $output, 'HASH' );
 
-use Data::Dumper;
-warn( Dumper( $output ) );
+is( $output->{code}, 0 );
+is( $output->{stderr}, '' );
 
 done_testing();

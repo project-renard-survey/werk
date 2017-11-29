@@ -27,3 +27,5 @@ package Werk::Task {
 }
 
 1;
+
+__END__

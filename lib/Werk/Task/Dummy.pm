@@ -6,10 +6,12 @@ package Werk::Task::Dummy {
 	sub run {
 		my ( $self, $context ) = @_;
 
-		return sprintf( 'Just a dummy task with id: "%s"', $self->id() );
+		return undef;
 	}
 
 	__PACKAGE__->meta()->make_immutable();
 }
 
 1;
+
+__END__
