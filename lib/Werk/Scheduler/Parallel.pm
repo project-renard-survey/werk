@@ -22,7 +22,7 @@ package Werk::Scheduler::Parallel {
 
 			my $batch_index = 0;
 			while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
-				$self->log->info(
+				$self->log->debug(
 					sprintf( 'Running %d tasks in batch %d for stage %d',
 						scalar( @batch ),
 						$batch_index,
@@ -32,7 +32,7 @@ package Werk::Scheduler::Parallel {
 
 				my @threads = ();
 				foreach my $task ( @batch ) {
-					$self->log()->info(
+					$self->log()->debug(
 						sprintf( 'Stage: %d - Running "%s" of type %s', $stage_index, $task->id(), ref( $task ) )
 					);
 

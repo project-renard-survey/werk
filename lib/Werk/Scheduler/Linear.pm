@@ -9,7 +9,7 @@ package Werk::Scheduler::Linear {
 		my ( $self, $flow, $context ) = @_;
 
 		foreach my $task ( $flow->graph()->topological_sort() ) {
-			$self->log()->info(
+			$self->log()->debug(
 				sprintf( 'Executing "%s" of type %s', $task->id(), ref( $task ) )
 			);
 
