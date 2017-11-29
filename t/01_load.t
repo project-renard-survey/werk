@@ -12,7 +12,6 @@ require_ok( 'Werk::Task' );
 require_ok( 'Werk::TaskFactory' );
 require_ok( 'Werk::Task::Code' );
 require_ok( 'Werk::Task::Shell' );
-require_ok( 'Werk::Task::Die' );
 require_ok( 'Werk::Task::Dummy' );
 require_ok( 'Werk::Task::Sleep' );
 
