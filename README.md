@@ -1,5 +1,9 @@
 # werk
 
+## Build status
+
+[![Build Status](https://travis-ci.org/marghidanu/werk.svg?branch=master)](https://travis-ci.org/marghidanu/werk)
+
 ## Description
 
 ## Concepts
