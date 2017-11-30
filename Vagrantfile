@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
 	config.vm.box = "stuffo/xenial64"
 
 	config.vm.provider "virtualbox" do |vb|
+		vb.cpus = "4"
 		vb.memory = "1024"
 	end
 

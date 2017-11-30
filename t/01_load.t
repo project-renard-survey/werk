@@ -15,9 +15,9 @@ require_ok( 'Werk::Task::Shell' );
 require_ok( 'Werk::Task::Dummy' );
 require_ok( 'Werk::Task::Sleep' );
 
-require_ok( 'Werk::Scheduler' );
-require_ok( 'Werk::SchedulerFactory' );
-require_ok( 'Werk::Scheduler::Linear' );
-require_ok( 'Werk::Scheduler::Parallel' );
+require_ok( 'Werk::Executor' );
+require_ok( 'Werk::ExecutorFactory' );
+require_ok( 'Werk::Executor::Linear' );
+require_ok( 'Werk::Executor::Parallel' );
 
 done_testing();

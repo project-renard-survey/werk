@@ -4,7 +4,6 @@ use strict;
 use warnings;
 
 use Test::More;
-use Test::Moose;
 
 require_ok( 'Werk::Context' );
 require_ok( 'Werk::Task::Shell' );

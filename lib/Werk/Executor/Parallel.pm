@@ -1,20 +1,25 @@
-package Werk::Scheduler::Parallel {
+package Werk::Executor::Parallel {
 	use Moose;
 
-	extends 'Werk::Scheduler';
+	extends 'Werk::Executor';
 
-	use threads ( exit => 'threads_only' );
-	use threads::shared;
+	use forks ( exit => 'threads_only' );
+	use forks::shared;
+
+	use Sys::Info::Device::CPU;
 
 	has 'max_parallel_tasks' => (
 		is => 'ro',
 		isa => 'Int',
-		default => 10,
+		default => sub {
+			return Sys::Info::Device::CPU->new()
+				->count() || 1;
+		},
 	);
 
 	with 'MooseX::Log::Log4perl';
 
-	sub schedule {
+	sub execute {
 		my ( $self, $flow, $context ) = @_;
 
 		my $stage_index = 0;

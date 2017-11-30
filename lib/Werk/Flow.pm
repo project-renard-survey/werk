@@ -36,19 +36,19 @@ package Werk::Flow {
 			foreach( @to );
 	}
 
-	sub heads {
-		my $self = shift();
-
-		return grep { !$self->graph()->in_degree( $_ ) }
-			$self->graph()->vertices();
-	}
-
-	sub tails {
-		my $self = shift();
-
-		return grep { !$self->graph()->out_degree( $_ ) }
-			$self->graph()->vertices();
-	}
+	# sub heads {
+	# 	my $self = shift();
+	#
+	# 	return grep { !$self->graph()->in_degree( $_ ) }
+	# 		$self->graph()->vertices();
+	# }
+	#
+	# sub tails {
+	# 	my $self = shift();
+	#
+	# 	return grep { !$self->graph()->out_degree( $_ ) }
+	# 		$self->graph()->vertices();
+	# }
 
 	sub get_stages {
 		my $self = shift();

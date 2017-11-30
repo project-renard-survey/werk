@@ -1,4 +1,4 @@
-package Werk::Scheduler {
+package Werk::Executor {
 	use Moose;
 
 	use MooseX::AbstractMethod;
@@ -11,7 +11,7 @@ package Werk::Scheduler {
 		default => 60,
 	);
 
-	abstract( 'schedule' );
+	abstract( 'execute' );
 
 	sub run_with_timeout {
 		my ( $self, $task, $context ) = @_;

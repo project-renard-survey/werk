@@ -1,11 +1,11 @@
-package Werk::Scheduler::Linear {
+package Werk::Executor::Linear {
 	use Moose;
 
-	extends 'Werk::Scheduler';
+	extends 'Werk::Executor';
 
 	with 'MooseX::Log::Log4perl';
 
-	sub schedule {
+	sub execute {
 		my ( $self, $flow, $context ) = @_;
 
 		foreach my $task ( $flow->graph()->topological_sort() ) {

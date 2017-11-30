@@ -12,7 +12,7 @@ Log::Log4perl->easy_init( $INFO );
 
 require_ok( 'Werk::Flow' );
 require_ok( 'Werk::Context' );
-require_ok( 'Werk::SchedulerFactory' );
+require_ok( 'Werk::ExecutorFactory' );
 
 require_ok( 'Werk::Task::Code' );
 require_ok( 'Werk::Task::Dummy' );
@@ -79,11 +79,11 @@ can_ok( $flow, qw( add_deps  ) );
 	my $context = Werk::Context->new( data => $data );
 	isa_ok( $context, 'Werk::Context' );
 
-	my $scheduler = Werk::SchedulerFactory->create( 'Parallel' );
-	isa_ok( $scheduler, 'Werk::Scheduler' );
-	can_ok( $scheduler, qw( schedule ) );
+	my $scheduler = Werk::ExecutorFactory->create( 'Parallel' );
+	isa_ok( $scheduler, 'Werk::Executor' );
+	can_ok( $scheduler, qw( execute ) );
 
-	$scheduler->schedule( $flow, $context );
+	$scheduler->execute( $flow, $context );
 
 	# use Data::Dumper;
 	# warn( Dumper( $context ) );
