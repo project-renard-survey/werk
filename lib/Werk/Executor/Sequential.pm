@@ -1,4 +1,4 @@
-package Werk::Executor::Linear {
+package Werk::Executor::Sequential {
 	use Moose;
 
 	extends 'Werk::Executor';

@@ -1,6 +1,10 @@
 package Werk::Context {
 	use Moose;
 
+	use MooseX::Storage;
+
+	with Storage();
+
 	has 'data' => (
 		is => 'ro',
 		isa => 'HashRef',
