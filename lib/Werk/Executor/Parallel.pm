@@ -37,26 +37,35 @@ package Werk::Executor::Parallel {
 					)
 				);
 
-				my @threads = ();
-				foreach my $task ( @batch ) {
-					$self->log()->debug(
-						sprintf( 'Stage: %d - Running "%s" of type %s', $stage_index, $task->id(), ref( $task ) )
-					);
+				if( scalar( @batch ) > 1 ) {
+					my @threads = ();
+					foreach my $task ( @batch ) {
+						$self->log()->debug(
+							sprintf( 'Stage: %d - Running "%s" of type %s', $stage_index, $task->id(), ref( $task ) )
+						);
 
-					push( @threads,
-						async {
-							[ $task->id(), $self->run_with_timeout( $task, $context ) ]
-						}
-					);
-				}
+						push( @threads,
+							async {
+								[ $task->id(), $self->run_with_timeout( $task, $context ) ]
+							}
+						);
+					}
 
-				foreach my $thread ( @threads ) {
-					my ( $id, $result ) = @{ $thread->join() };
+					foreach my $thread ( @threads ) {
+						my ( $id, $result ) = @{ $thread->join() };
 
-					die( $thread->error() )
-						if( $thread->error() );
+						die( $thread->error() )
+							if( $thread->error() );
 
-					$context->set_key( $id => $result );
+						$context->set_key( $id => $result );
+					}
+				} else {
+					# NOTE: This is an simple optiomization, noo need to create a
+					# new process for a single task. 
+					my $task = shift( @batch );
+					my $result= $self->run_with_timeout( $task, $context );
+
+					$context->set_key( $task->id(), $result );
 				}
 
 				$batch_index++;
