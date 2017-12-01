@@ -8,7 +8,9 @@ package Werk::Executor::Sequential {
 	sub execute {
 		my ( $self, $flow, $context ) = @_;
 
-		foreach my $task ( $flow->graph()->topological_sort() ) {
+		my @tasks = $self->get_execution_plan( $flow );
+
+		foreach my $task ( @tasks ) {
 			$self->log()->debug(
 				sprintf( 'Executing "%s" of type %s', $task->id(), ref( $task ) )
 			);
@@ -16,6 +18,13 @@ package Werk::Executor::Sequential {
 			my $result = $self->run_with_timeout( $task, $context );
 			$context->set_key( $task->id(), $result );
 		}
+	}
+
+	sub get_execution_plan {
+		my ( $self, $flow ) = @_;
+
+		return $flow->graph()
+			->topological_sort();
 	}
 
 	__PACKAGE__->meta()->make_immutable();

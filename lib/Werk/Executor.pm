@@ -11,7 +11,11 @@ package Werk::Executor {
 		default => 60,
 	);
 
+
+	# TODO: Implement standard execute method based on the execution plan
+
 	abstract( 'execute' );
+	abstract( 'get_execution_plan' );
 
 	sub run_with_timeout {
 		my ( $self, $task, $context ) = @_;
