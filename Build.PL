@@ -11,8 +11,6 @@ my $builder = Module::Build->new(
 	dist_author => 'Tudor Marghidanu',
 	dist_abstract => 'DAGs in Perl',
 
-	share_dir => 'share',
-
 	# NOTE: Keep list sorted!
 	requires => {
 		'Capture::Tiny' => undef,
@@ -25,13 +23,13 @@ my $builder = Module::Build->new(
 		'Moose' => undef,
 		'MooseX::AbstractFactory' => undef,
 		'MooseX::AbstractMethod' => undef,
-		'MooseX::App' => undef,
 		'MooseX::Log::Log4perl' => undef,
 		'MooseX::Storage' => undef,
 		'Sys::Info::Base' => undef,
 		'Sys::Info::Driver::Linux' => undef,
 		'Test::Exception' => undef,
 		'Test::More' => undef,
+		'Text::Template' => undef,
 		'Time::HiRes' => undef,
 		'Time::Out' => undef,
 	},

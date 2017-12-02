@@ -27,7 +27,6 @@ package Werk::Flow {
 	);
 
 	with 'Werk::Roles::Graphviz';
-	with 'Werk::Roles::Serialization';
 
 	sub add_deps {
 		my ( $self, $from, @to ) = @_;
