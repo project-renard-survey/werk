@@ -67,7 +67,7 @@ can_ok( $flow, qw( add_deps  ) );
 	$flow->add_deps( $sleep, $save );
 	$flow->add_deps( $enrich, $save );
 
-	# $flow->draw( 'simple.svg', 'svg' );
+	# $flow->draw( 'dag.svg', 'svg' );
 }
 
 {
@@ -83,6 +83,7 @@ can_ok( $flow, qw( add_deps  ) );
 	isa_ok( $scheduler, 'Werk::Executor' );
 	can_ok( $scheduler, qw( execute ) );
 
+	# $scheduler->draw( $flow, 'svg', 'plan.svg' );
 	$scheduler->execute( $flow, $context );
 
 	# use Data::Dumper;
