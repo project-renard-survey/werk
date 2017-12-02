@@ -5,4 +5,9 @@ blib/
 Build
 MYMETA.*
 
+MANIFEST
+META.*
+
+*.tar.gz
+
 *.svg

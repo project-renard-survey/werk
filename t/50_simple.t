@@ -67,7 +67,7 @@ can_ok( $flow, qw( add_deps  ) );
 	$flow->add_deps( $sleep, $save );
 	$flow->add_deps( $enrich, $save );
 
-	$flow->draw( 'simple.svg', 'svg' );
+	# $flow->draw( 'simple.svg', 'svg' );
 }
 
 {
