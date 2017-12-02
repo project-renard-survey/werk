@@ -1,5 +1,5 @@
 package Werk {
-	our $VERSION = '1.0';
+	our $VERSION = '0.1';
 
 	__PACKAGE__->meta()->make_immutable();
 }
