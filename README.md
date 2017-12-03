@@ -96,7 +96,7 @@ $executor->execute( $flow, { url => $_ } )
 
 The execution plan for the workflow above and the **Parallel** executor kinda looks like this:
 
-[Plan](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_plan.svg?sanitize=true)
+![Plan](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_plan.svg?sanitize=true)
 
 ## Concepts
 
