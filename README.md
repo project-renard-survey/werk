@@ -13,21 +13,21 @@ use Werk::Flow;
 use Werk::ExecutorFactory;
 
 my $flow = Werk::Flow->new(
-	title => '',
-    description => '',
+	title => 'Example workflow',
+	description => 'A simple crawler and data extraction pipeline',
 );
 
 my $download = Werk::Task::Custom::Download->new(
 	id => 'name',
-    timeout => 5,
-    use_robots => 1,
+	timeout => 5,
+	use_robots => 1,
 );
 
 my $content_extractor = Werk::Task::Custom::ContentExtractor->new(
 	id => 'extractor',
-    tool => 'Boilerpipe',
-    tool_args => {
-    	strategy => 'ArticleExtractor'
+	tool => 'Boilerpipe',
+	tool_args => {
+		strategy => 'ArticleExtractor'
 	}
 );
 $flow->add_deps( $download, $content_extractor );
@@ -39,31 +39,31 @@ $flow->add_deps( $content_extractor, $tokenizer );
 
 my $agg_people_address = Werk::Task::Common::NLP::RelationExtractor->new(
 	id => 'aggregator_people_address',
-    types => [ qw( person address ) ],
+	types => [ qw( person address ) ],
 );
 
 my $agg_companies_address = Werk::Task::Common::NLP::RelationExtractor->new(
-	id => 'aggregator_people_address',
-    types => [ qw( company address ) ],
+	id => 'aggregator_companies_address',
+	types => [ qw( company address ) ],
 );
 
-foreach $type ( qw( person company address ) ) {
+foreach my $type ( qw( person company address ) ) {
 	my $ner_task = Werk::Task::Common::NLP::NER->new(
-    	id => sprintf( 'ner_%s', $type ),
-        type => $type,
+		id => sprintf( 'ner_%s', $type ),
+		type => $type,
 	);
 
 	$flow->add_deps( $tokenizer, $ner_task );
-    $flow->add_deps( $ner_task, $agg_people_address, $agg_companies_address );
+	$flow->add_deps( $ner_task, $agg_people_address, $agg_companies_address );
 }
 
-my $save = Werk::Task::Common::Common::Save->new(
+my $save = Werk::Task::Common::Data::Save->new(
 	id => 'save',
-    type => 'MongoDB',
-    args => {
-    	server => 'localhost',
-        port => 27017,
-        namespace => 'crawler.documents',
+	type => 'MongoDB',
+	args => {
+		server => 'localhost',
+		port => 27017,
+		namespace => 'crawler.documents',
 	}
 );
 
@@ -81,10 +81,10 @@ And now assuming we have a list of URLs we can trigger our "werk-flow" on it:
 
 ```perl
 my @urls = (
-  'http://domain.com/docs/1.html',
-  'http://domain.com/docs/2.html',
-  ...
-  'http://domain.com/docs/1000.html',
+	'http://domain.com/docs/1.html',
+	'http://domain.com/docs/2.html',
+	...
+	'http://domain.com/docs/1000.html',
 );
 
 my $executor = Werk::ExecutorFactory->create( 'Parallel' );
@@ -94,7 +94,7 @@ $executor->execute( $flow, { url => $_ } )
 
 The execution plan for the workflow above and the **Parallel** executor kinda looks like this:
 
-	
+
 
 ## Concepts
 

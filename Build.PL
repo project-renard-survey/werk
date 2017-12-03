@@ -11,6 +11,8 @@ my $builder = Module::Build->new(
 	dist_author => 'Tudor Marghidanu',
 	dist_abstract => 'DAGs in Perl',
 
+	share_dir => 'share',
+
 	# NOTE: Keep list sorted!
 	requires => {
 		'Capture::Tiny' => undef,
