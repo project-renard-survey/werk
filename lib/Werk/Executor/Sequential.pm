@@ -18,3 +18,15 @@ package Werk::Executor::Sequential {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Executor::Sequential
+
+=head1 METHODS
+
+=head2 get_execution_plan
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

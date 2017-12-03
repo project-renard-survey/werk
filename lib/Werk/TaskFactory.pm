@@ -7,3 +7,13 @@ package Werk::TaskFactory {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::TaskFactory
+
+=head1 METHODS
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

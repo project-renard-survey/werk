@@ -69,3 +69,21 @@ package Werk::Task::Shell {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Task::Shell
+
+=head1 ATTRIBUTES
+
+=head2 script
+
+=head2 env
+
+=head1 METHODS
+
+=head2 run
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

@@ -167,3 +167,25 @@ package Werk::Executor {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Executor
+
+=head1 ATTRIBUTES
+
+=head2 task_timeout
+
+=head2 max_parallel_tasks
+
+=head1 METHODS
+
+=head2 execute
+
+=head2 run_with_timeout
+
+=head2 draw
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

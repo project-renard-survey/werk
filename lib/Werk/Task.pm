@@ -35,3 +35,23 @@ package Werk::Task {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Task
+
+=head1 ATTRIBUTES
+
+=head2 id
+
+=head2 title
+
+=head2 description
+
+=head1 METHODS
+
+=head2 abort
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

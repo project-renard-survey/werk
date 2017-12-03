@@ -71,3 +71,25 @@ package Werk::Flow {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Flow
+
+=head1 ATTRIBUTES
+
+=head2 title
+
+=head2 description
+
+=head2 graph
+
+=head1 METHODS
+
+=head2 add_deps
+
+=head2 draw
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

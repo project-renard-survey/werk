@@ -26,3 +26,19 @@ package Werk::Task::Code {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Task::Code
+
+=head1 ATTRIBUTES
+
+=head2 code
+
+=head1 METHODS
+
+=head2 run
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

@@ -27,3 +27,19 @@ package Werk::Task::Sleep {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Task::Sleep
+
+=head1 ATTRIBUTES
+
+=head2 seconds
+
+=head1 METHODS
+
+=head2 run
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

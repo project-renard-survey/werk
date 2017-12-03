@@ -1,5 +1,7 @@
 package Werk {
-	our $VERSION = '0.1';
+	use Moose;
+
+	our $VERSION = '0.2';
 
 	__PACKAGE__->meta()->make_immutable();
 }
@@ -7,3 +9,13 @@ package Werk {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk
+
+=head1 METHODS
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>

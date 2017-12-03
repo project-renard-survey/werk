@@ -39,3 +39,25 @@ package Werk::Context {
 1;
 
 __END__
+
+=head1 NAME
+
+Werk::Context
+
+=head1 ATTRIBUTES
+
+=head2 data
+
+=head1 METHODS
+
+=head2 get_key
+
+=head2 set_key
+
+=head2 has_key
+
+=head2 serialize
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>
