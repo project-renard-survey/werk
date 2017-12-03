@@ -8,6 +8,8 @@
 
 ## Example
 
+In the example below we'll take a list of URLs and run it trough our pipeline which will download the document and extract some information out of it. The steps described here DO NOT exist in the current package and are used only to describe the functionality of **Werk**.
+
 ```perl
 use Werk::Flow;
 use Werk::ExecutorFactory;
