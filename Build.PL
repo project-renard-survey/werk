@@ -29,6 +29,7 @@ my $builder = Module::Build->new(
 		'Sys::Info::Driver::Linux' => undef,
 		'Test::Exception' => undef,
 		'Test::More' => undef,
+		'Test::Pod::Coverage' => undef,
 		'Text::Template' => undef,
 		'Time::HiRes' => undef,
 		'Time::Out' => undef,

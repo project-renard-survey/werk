@@ -23,6 +23,12 @@ package Werk::Task {
 
 	abstract( 'run' );
 
+	sub abort {
+		my $self = shift();
+
+		return undef;
+	}
+
 	__PACKAGE__->meta()->make_immutable();
 }
 
