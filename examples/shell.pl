@@ -37,14 +37,5 @@ my $last = Werk::Task::Shell->new(
 
 $flow->add_deps( $after, $last );
 
-# $flow->draw( 'shell_dag.svg' );
-
-{
-	my $executor = Werk::ExecutorFactory->create( 'Parallel' );
-	# $executor->draw( $flow, 'shell_plan.svg' );
-
-	my $context = $executor->execute( $flow );
-
-	use Data::Dumper;
-	warn( Dumper( $context ) );
-}
+Werk::ExecutorFactory->create( 'Parallel' )
+	->execute( $flow );

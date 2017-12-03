@@ -22,7 +22,7 @@ my $dumper = Werk::Task::Code->new(
 		my ( $c, $t ) = @_;
 
 		use Data::Dumper;
-		print( Dumper( $c->pack() ) );
+		print( Dumper( $c->serialize() ) );
 	}
 );
 
