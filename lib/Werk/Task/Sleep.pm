@@ -11,6 +11,8 @@ package Werk::Task::Sleep {
 		default => 0,
 	);
 
+	with 'MooseX::Log::Log4perl';
+
 	sub run {
 		my ( $self, $context ) = @_;
 

@@ -3,6 +3,8 @@ package Werk::Task::Dummy {
 
 	extends 'Werk::Task';
 
+	with 'MooseX::Log::Log4perl';
+
 	sub run {
 		my ( $self, $context ) = @_;
 

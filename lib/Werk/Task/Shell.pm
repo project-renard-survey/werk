@@ -36,11 +36,18 @@ package Werk::Task::Shell {
 		}
 	);
 
+	with 'MooseX::Log::Log4perl';
+
 	sub run {
 		my ( $self, $context ) = @_;
 
+		my $params = {
+				id => $self->id(),
+				%{ $context->data() }
+		};
+
 		my $output = $self->_template()
-			->fill_in( HASH => $context->data() );
+			->fill_in( HASH => $params );
 
 		my ( $fh, $file ) = tempfile();
 		write_file( $file, { binmode => ':raw' }, $output );

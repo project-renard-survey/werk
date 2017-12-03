@@ -10,7 +10,6 @@ use Log::Log4perl qw( :easy );
 Log::Log4perl->easy_init( $INFO );
 
 require_ok( 'Werk::Flow' );
-require_ok( 'Werk::Context' );
 require_ok( 'Werk::ExecutorFactory' );
 
 require_ok( 'Werk::Task::Code' );
@@ -75,15 +74,12 @@ can_ok( $flow, qw( add_deps  ) );
 		alias => 'Batman',
 	};
 
-	my $context = Werk::Context->new( data => $data );
-	isa_ok( $context, 'Werk::Context' );
-
 	my $scheduler = Werk::ExecutorFactory->create( 'Parallel' );
 	isa_ok( $scheduler, 'Werk::Executor' );
 	can_ok( $scheduler, qw( execute ) );
 
 	# $scheduler->draw( $flow, 'svg', 'plan.svg' );
-	$scheduler->execute( $flow, $context );
+	my $context = $scheduler->execute( $flow, $data );
 
 	# use Data::Dumper;
 	# warn( Dumper( $context ) );

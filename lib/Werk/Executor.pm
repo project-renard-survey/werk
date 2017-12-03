@@ -10,6 +10,8 @@ package Werk::Executor {
 
 	use Time::Out qw( timeout );
 
+	use Werk::Context;
+
 	has 'task_timeout' => (
 		is => 'ro',
 		isa => 'Int',
@@ -30,7 +32,11 @@ package Werk::Executor {
 	with 'MooseX::Log::Log4perl';
 
 	sub execute {
-		my ( $self, $flow, $context ) = @_;
+		my ( $self, $flow, $params ) = @_;
+
+		my $context = Werk::Context->new(
+			data => $params || {}
+		);
 
 		my @stages = $self->get_execution_plan( $flow );
 
@@ -83,6 +89,8 @@ package Werk::Executor {
 
 			$stage_index++;
 		}
+
+		return $context;
 	}
 
 	sub run_with_timeout {
@@ -102,7 +110,7 @@ package Werk::Executor {
 	}
 
 	sub draw {
-		my ( $self, $flow, $format, $output ) = @_;
+		my ( $self, $flow, $output, $format ) = @_;
 
 		my $graph = GraphViz2->new(
 			global => {
@@ -149,6 +157,8 @@ package Werk::Executor {
 			format => $format || 'svg',
 			output_file => $output,
 		);
+
+		return $self;
 	}
 
 	__PACKAGE__->meta()->make_immutable();

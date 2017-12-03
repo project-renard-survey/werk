@@ -27,7 +27,4 @@ isa_ok( $output, 'HASH' );
 is( $output->{code}, 0 );
 is( $output->{stderr}, '' );
 
-# use Data::Dumper;
-# warn( Dumper( $output ) );
-
 done_testing();
