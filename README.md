@@ -76,6 +76,8 @@ We can take a look at the workflow diagram by calling the `draw` method:
 ```perl
 $flow->draw( 'my_flow.svg' );
 ```
+![DAG](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_dag.svg?sanitize=true)
+
 
 And now assuming we have a list of URLs we can trigger our "werk-flow" on it:
 
@@ -94,7 +96,7 @@ $executor->execute( $flow, { url => $_ } )
 
 The execution plan for the workflow above and the **Parallel** executor kinda looks like this:
 
-
+[Plan](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_plan.svg?sanitize=true)
 
 ## Concepts
 
