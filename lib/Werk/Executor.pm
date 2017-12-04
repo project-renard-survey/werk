@@ -8,15 +8,7 @@ package Werk::Executor {
 
 	use Sys::Info::Device::CPU;
 
-	use Time::Out qw( timeout );
-
 	use Werk::Context;
-
-	has 'task_timeout' => (
-		is => 'ro',
-		isa => 'Int',
-		default => 60,
-	);
 
 	has 'max_parallel_tasks' => (
 		is => 'ro',
@@ -62,7 +54,7 @@ package Werk::Executor {
 
 						push( @threads,
 							async {
-								[ $task->id(), $self->run_with_timeout( $task, $context ) ]
+								[ $task->id(), $task->run_wrapper( $context ) ]
 							}
 						);
 					}
@@ -79,7 +71,7 @@ package Werk::Executor {
 					# NOTE: This is an simple optiomization, no need to create a
 					# new process for a single task.
 					my $task = shift( @batch );
-					my $result= $self->run_with_timeout( $task, $context );
+					my $result= $task->run_wrapper( $context );
 
 					$context->set_key( $task->id(), $result );
 				}
@@ -91,22 +83,6 @@ package Werk::Executor {
 		}
 
 		return $context;
-	}
-
-	sub run_with_timeout {
-		my ( $self, $task, $context ) = @_;
-
-		# TODO: Account for number of retries
-
-		my $result = timeout(
-			$self->task_timeout(),
-			sub { $task->run( $context ) },
-		);
-
-		die( sprintf( 'Call to %s timed out after %d seconds', $task->id(), $self->task_timeout() ) )
-			if( $@ );
-
-		return $result;
 	}
 
 	sub draw {
@@ -174,15 +150,11 @@ Werk::Executor
 
 =head1 ATTRIBUTES
 
-=head2 task_timeout
-
 =head2 max_parallel_tasks
 
 =head1 METHODS
 
 =head2 execute
-
-=head2 run_with_timeout
 
 =head2 draw
 

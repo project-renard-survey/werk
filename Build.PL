@@ -27,6 +27,7 @@ my $builder = Module::Build->new(
 		'MooseX::AbstractMethod' => undef,
 		'MooseX::Log::Log4perl' => undef,
 		'MooseX::Storage' => undef,
+		'Sub::Retry' => undef,
 		'Sys::Info::Base' => undef,
 		'Sys::Info::Driver::Linux' => undef,
 		'Test::Exception' => undef,

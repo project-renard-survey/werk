@@ -3,6 +3,10 @@ package Werk::Task {
 
 	use MooseX::AbstractMethod;
 
+	use Time::Out;
+
+	use Sub::Retry;
+
 	has 'id' => (
 		is => 'ro',
 		isa => 'Str',
@@ -21,12 +25,42 @@ package Werk::Task {
 		default => undef,
 	);
 
+	has 'timeout' => (
+		is => 'ro',
+		isa => 'Int',
+		default => 60,
+	);
+
+	has 'retries' => (
+		is => 'ro',
+		isa => 'Int',
+		default => 1,
+	);
+
+	has 'retry_delay' => (
+		is => 'ro',
+		isa => 'Int',
+		default => 1,
+	);
+
 	abstract( 'run' );
 
-	sub abort {
-		my $self = shift();
+	sub run_wrapper {
+		my ( $self, $context ) = @_;
 
-		return undef;
+		return retry( $self->retries(), $self->retry_delay(),
+			sub {
+				my $out = Time::Out::timeout(
+					$self->timeout(),
+					sub { $self->run( $context ) }
+				);
+
+				die( sprintf( 'Call to %s timed out after %d seconds', $self->id(), $self->timeout() ) )
+					if( $@ );
+
+				return $out;
+			}
+		);
 	}
 
 	__PACKAGE__->meta()->make_immutable();
@@ -48,9 +82,15 @@ Werk::Task
 
 =head2 description
 
+=head2 timeout
+
+=head2 retries
+
+=head2 retry_delay
+
 =head1 METHODS
 
-=head2 abort
+=head2 run_wrapper
 
 =head1 AUTHOR
 
