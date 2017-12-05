@@ -3,7 +3,18 @@ package Werk::Context {
 
 	use MooseX::Storage;
 
+	use Data::UUID;
+
 	with Storage();
+
+	has 'session_id' => (
+		is => 'ro',
+		isa => 'Str',
+		default => sub {
+			return Data::UUID->new()
+				->create_str()
+		}
+	);
 
 	has 'data' => (
 		is => 'ro',
@@ -45,6 +56,8 @@ __END__
 Werk::Context
 
 =head1 ATTRIBUTES
+
+=head2 session_id
 
 =head2 data
 

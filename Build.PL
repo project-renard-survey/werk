@@ -16,6 +16,7 @@ my $builder = Module::Build->new(
 	# NOTE: Keep list sorted!
 	requires => {
 		'Capture::Tiny' => undef,
+		'Data::UUID' => undef,
 		'File::Slurp' => undef,
 		'File::Temp' => undef,
 		'forks::shared' => undef,
