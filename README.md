@@ -20,8 +20,8 @@ my $flow = Werk::Flow->new(
 );
 
 my $download = Werk::Task::Custom::Download->new(
-	id => 'name',
-	timeout => 5,
+	id => 'download',
+	http_timeout => 5,
 	use_robots => 1,
 );
 
@@ -110,8 +110,6 @@ The execution plan for the workflow above and the **Parallel** executor kinda lo
 
 ### Context
 
-## Example
-
 ## Setting up a development environment
 
 ```bash
@@ -126,3 +124,11 @@ perl Build.PL
 ./Build
 ./Build test
 ```
+## Building it from source
+
+perl Build.PL
+./Build installdeps
+./Build manifest
+./Build
+./Build test
+./Build install
