@@ -126,9 +126,11 @@ perl Build.PL
 ```
 ## Building it from source
 
+```bash
 perl Build.PL
 ./Build installdeps
 ./Build manifest
 ./Build
 ./Build test
 ./Build install
+```
