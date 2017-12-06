@@ -3,6 +3,17 @@ package Werk::Executor::Parallel {
 
 	extends 'Werk::Executor';
 
+	use Sys::Info::Device::CPU;
+
+	has 'max_parallel_tasks' => (
+		is => 'ro',
+		isa => 'Int',
+		default => sub {
+			return Sys::Info::Device::CPU->new()
+				->count() || 1;
+		},
+	);
+
 	sub get_execution_plan {
 		my ( $self, $flow ) = @_;
 
@@ -18,15 +29,22 @@ package Werk::Executor::Parallel {
 			$ba{ $to } ||= {};
 		}
 
-		my @result = ();
+		my @stages = ();
 		while( my @a = sort( grep { ! %{ $ba{ $_ } } } keys( %ba ) ) ) {
-			push( @result, [ map { $tasks{ $_ } } @a ] );
+			push( @stages, [ map { $tasks{ $_ } } @a ] );
 			delete( @ba{@a} );
 			delete( @{$_}{ @a } )
 				foreach( values( %ba ) );
 		}
 
-		return reverse( @result );
+		my @result = ();
+		foreach my $stage ( reverse( @stages ) ) {
+			while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
+				push( @result, \@batch );
+			}
+		}
+
+		return @result;
 	}
 
 	__PACKAGE__->meta()->make_immutable();
@@ -39,6 +57,10 @@ __END__
 =head1 NAME
 
 Werk::Executor::Parallel
+
+=head1 ATTRIBUTES
+
+=head2 max_parallel_tasks
 
 =head1 METHODS
 

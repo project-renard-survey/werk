@@ -21,7 +21,7 @@ my $after = Werk::Task::Shell->new(
 	script => 'echo -n 1',
 );
 
-foreach my $index ( 0 .. 5 ) {
+foreach my $index ( 1 .. 5 ) {
 	my $task = Werk::Task::Shell->new(
 		id => sprintf( 'task_%d', $index ),
 		script => 'echo -n "{$id}" && sleep 1',
@@ -37,5 +37,5 @@ my $last = Werk::Task::Shell->new(
 
 $flow->add_deps( $after, $last );
 
-Werk::ExecutorFactory->create( 'Parallel' )
+Werk::ExecutorFactory->create( 'Parallel', { max_parallel_tasks => 5 } )
 	->execute( $flow );

@@ -6,18 +6,7 @@ package Werk::Executor {
 	use forks ( exit => 'threads_only' );
 	use forks::shared;
 
-	use Sys::Info::Device::CPU;
-
 	use Werk::Context;
-
-	has 'max_parallel_tasks' => (
-		is => 'ro',
-		isa => 'Int',
-		default => sub {
-			return Sys::Info::Device::CPU->new()
-				->count() || 1;
-		},
-	);
 
 	abstract( 'get_execution_plan' );
 
@@ -30,56 +19,53 @@ package Werk::Executor {
 			data => $params || {}
 		);
 
+		$self->log()->debug( sprintf( '* Running workflow "%s" with id: %s',
+				$flow->title(),
+				$context->session_id(),
+			)
+		);
+
 		my @stages = $self->get_execution_plan( $flow );
 
-		my $stage_index = 0;
+		my $index = 0;
 		foreach my $stage ( @stages ) {
-
-			my $batch_index = 0;
-			while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
-				$self->log->debug(
-					sprintf( 'Running %d tasks in batch %d for stage %d',
-						scalar( @batch ),
-						$batch_index,
-						$stage_index,
+			if( scalar( @{ $stage } ) > 1 ) {
+				$self->log()->debug( sprintf( '+ Running %d tasks in parallel in stage: %d',
+						scalar( @{ $stage } ),
+						$index,
 					)
 				);
 
-				if( scalar( @batch ) > 1 ) {
-					my @threads = ();
-					foreach my $task ( @batch ) {
-						$self->log()->debug(
-							sprintf( 'Stage: %d - Running "%s" of type %s', $stage_index, $task->id(), ref( $task ) )
-						);
-
-						push( @threads,
-							async {
-								[ $task->id(), $task->run_wrapper( $context ) ]
-							}
-						);
-					}
-
-					foreach my $thread ( @threads ) {
-						my ( $id, $result ) = @{ $thread->join() };
-
-						die( $thread->error() )
-							if( $thread->error() );
-
-						$context->set_key( $id => $result );
-					}
-				} else {
-					# NOTE: This is an simple optiomization, no need to create a
-					# new process for a single task.
-					my $task = shift( @batch );
-					my $result= $task->run_wrapper( $context );
-
-					$context->set_key( $task->id(), $result );
+				my @threads = ();
+				foreach my $task ( @{ $stage }  ) {
+					$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
+					push( @threads,
+						async { [ $task->id(), $task->run_wrapper( $context ) ] }
+					);
 				}
 
-				$batch_index++;
+				foreach my $thread ( @threads ) {
+					my ( $id, $result ) = @{ $thread->join() };
+
+					die( $thread->error() )
+						if( $thread->error() );
+
+					$context->set_key( $id => $result );
+				}
+			} else {
+				$self->log()->debug( sprintf( '+ Running 1 task in stage: %d', $index ) );
+
+				# NOTE: This is an simple optiomization, no need to create a
+				# new process for a single task.
+				my $task = shift( @{ $stage } );
+
+				$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
+				my $result= $task->run_wrapper( $context );
+
+				$context->set_key( $task->id(), $result );
 			}
 
-			$stage_index++;
+			$index++;
 		}
 
 		return $context;
@@ -147,10 +133,6 @@ __END__
 =head1 NAME
 
 Werk::Executor
-
-=head1 ATTRIBUTES
-
-=head2 max_parallel_tasks
 
 =head1 METHODS
 
