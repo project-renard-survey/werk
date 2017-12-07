@@ -124,10 +124,10 @@ package main {
 	$flow->add_deps( $agg_people_address, $save );
 	$flow->add_deps( $agg_companies_address, $save );
 
-	#$flow->draw( 'share/images/documentation_dag.svg' );
+	$flow->draw( 'share/images/documentation_dag.svg' );
 
-	#Werk::ExecutorFactory->create( 'Parallel' )
-	#	->draw( $flow, 'share/images/documentation_plan.svg' )
+	Werk::ExecutorFactory->create( 'Parallel', { max_parallel_tasks => 0 } )
+		->draw( $flow, 'share/images/documentation_plan.svg' )
 }
 
 1;
