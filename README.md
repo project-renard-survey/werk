@@ -104,9 +104,25 @@ The execution plan for the workflow above and the **Parallel** executor kinda lo
 
 ### Task
 
+Smallest unit of work that represents some specific isolated functionality. These guys are the actual workers and the implementation should be very concise.
+
+* Werk::Task::Code
+
+* Werk::Task::Shell
+
+* Werk::Task::Sleep
+
+* Werk::Task::Dummy
+
 ### Flow
 
 ### Executor
+
+For a given graph the executor determines the order of tasks execution by generating an execution plan. In parallel mode it will try to determine the degree of parallelism if possible.
+
+* Werk::Executor::Sequential
+
+* Werk::Executor::Parallel
 
 ### Context
 
