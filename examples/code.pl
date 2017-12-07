@@ -41,5 +41,5 @@ foreach my $index ( 1 .. 10 ) {
 	$flow->add_deps( $task, $dumper );
 }
 
-Werk::ExecutorFactory->create( 'Parallel', { max_parallel_tasks => 10 } )
+Werk::ExecutorFactory->create( 'Parallel', { max_parallel_tasks => 0 } )
 	->execute( $flow, { max_sleep => 5 } );

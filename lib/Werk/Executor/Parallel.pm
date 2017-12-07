@@ -37,14 +37,20 @@ package Werk::Executor::Parallel {
 				foreach( values( %ba ) );
 		}
 
-		my @result = ();
-		foreach my $stage ( reverse( @stages ) ) {
-			while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
-				push( @result, \@batch );
+		my @results = reverse( @stages );
+
+		if( $self->max_parallel_tasks() ) {
+			my @batches = ();
+			foreach my $stage ( @results ) {
+				while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
+					push( @batches, \@batch );
+				}
 			}
+
+			@results = @batches;
 		}
 
-		return @result;
+		return @results;
 	}
 
 	__PACKAGE__->meta()->make_immutable();
