@@ -36,8 +36,6 @@ package Werk::Task::Shell {
 		}
 	);
 
-	with 'MooseX::Log::Log4perl';
-
 	sub run {
 		my ( $self, $context ) = @_;
 

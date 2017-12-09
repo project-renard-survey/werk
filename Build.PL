@@ -26,7 +26,6 @@ my $builder = Module::Build->new(
 		'Moose' => undef,
 		'MooseX::AbstractFactory' => undef,
 		'MooseX::AbstractMethod' => undef,
-		# 'MooseX::Event' => undef,
 		'MooseX::Log::Log4perl' => undef,
 		'MooseX::Storage' => undef,
 		'Sub::Retry' => undef,

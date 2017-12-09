@@ -43,6 +43,8 @@ package Werk::Task {
 		default => 1,
 	);
 
+	with 'MooseX::Log::Log4perl';
+
 	abstract( 'run' );
 
 	sub run_wrapper {
@@ -50,6 +52,8 @@ package Werk::Task {
 
 		return retry( $self->retries(), $self->retry_delay(),
 			sub {
+				my $n = shift();
+
 				my $out = Time::Out::timeout(
 					$self->timeout(),
 					sub { $self->run( $context ) }

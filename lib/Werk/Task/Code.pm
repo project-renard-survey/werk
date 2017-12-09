@@ -9,8 +9,6 @@ package Werk::Task::Code {
 		required => 1,
 	);
 
-	with 'MooseX::Log::Log4perl';
-
 	sub run {
 		my ( $self, $context ) = @_;
 

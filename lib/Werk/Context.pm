@@ -40,6 +40,12 @@ package Werk::Context {
 		}
 	);
 
+	has 'created' => (
+		is => 'ro',
+		isa => 'Num',
+		default => sub { time() },
+	);
+
 	around 'pack' => sub {
 		my $orig = shift();
 		my $self = shift();
@@ -71,15 +77,25 @@ Werk::Context
 
 =head2 session_id
 
-=head2 data
+=head2 globals
+
+=head2 results
+
+=head2 created
 
 =head1 METHODS
 
-=head2 get_key
+=head2 get_global
 
-=head2 set_key
+=head2 set_global
 
-=head2 has_key
+=head2 has_global
+
+=head2 get_result
+
+=head2 set_result
+
+=head2 has_result
 
 =head2 serialize
 
