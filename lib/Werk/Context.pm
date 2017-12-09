@@ -16,15 +16,27 @@ package Werk::Context {
 		}
 	);
 
-	has 'data' => (
+	has 'globals' => (
 		is => 'ro',
 		isa => 'HashRef',
 		default => sub { {} },
 		traits => [ qw( Hash ) ],
 		handles => {
-			'set_key' => 'set',
-			'get_key' => 'get',
-			'has_key' => 'exists',
+			set_global => 'set',
+			get_global => 'get',
+			has_global => 'exists',
+		}
+	);
+
+	has 'results' => (
+		is => 'ro',
+		isa => 'HashRef',
+		default => sub { {} },
+		traits => [ qw( Hash ) ],
+		handles => {
+			set_result => 'set',
+			get_result => 'get',
+			has_result => 'exists',
 		}
 	);
 

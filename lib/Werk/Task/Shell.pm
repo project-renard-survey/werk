@@ -43,7 +43,7 @@ package Werk::Task::Shell {
 
 		my $params = {
 				id => $self->id(),
-				%{ $context->data() }
+				context => $context->serialize(),
 		};
 
 		my $output = $self->_template()

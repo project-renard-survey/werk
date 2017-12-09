@@ -32,7 +32,7 @@ foreach my $index ( 1 .. 10 ) {
 		code => sub {
 			my ( $c, $t ) = @_;
 
-			my $value = int( rand( $c->get_key( 'max_sleep' ) ) );
+			my $value = int( rand( $c->get_global( 'max_sleep' ) ) );
 			$t->log()->debug( sprintf( 'Sleeping for %d', $value ) );
 			return sleep( $value );
 		}

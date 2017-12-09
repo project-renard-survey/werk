@@ -46,7 +46,7 @@ can_ok( $flow, qw( add_deps  ) );
 		code => sub {
 			my ( $context, $parent ) = @_;
 
-			my $load = $context->get_key( 'load' );
+			my $load = $context->get_result( 'load' );
 			my @lines = map { uc( $_ ) }
 				grep { $_ =~ /^d/ }
 				split( "\n", $load->{stdout} );

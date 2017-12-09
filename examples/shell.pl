@@ -7,6 +7,7 @@ use Log::Log4perl qw( :easy );
 
 use Werk::Flow;
 use Werk::Task::Shell;
+use Werk::Task::Code;
 use Werk::ExecutorFactory;
 
 Log::Log4perl->easy_init( $DEBUG );
@@ -30,9 +31,14 @@ foreach my $index ( 1 .. 5 ) {
 	$flow->add_deps( $task, $after );
 }
 
-my $last = Werk::Task::Shell->new(
+my $last = Werk::Task::Code->new(
 	id => 'last',
-	script => 'ls -al',
+	code => sub {
+		my ( $c, $t) = @_;
+
+		use Data::Dumper;
+		print( Dumper( $c->serialize() ) );
+	}
 );
 
 $flow->add_deps( $after, $last );

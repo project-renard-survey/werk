@@ -16,7 +16,7 @@ package Werk::Executor {
 		my ( $self, $flow, $params ) = @_;
 
 		my $context = Werk::Context->new(
-			data => $params || {}
+			globals => $params || {}
 		);
 
 		$self->log()->debug( sprintf( '* Running workflow "%s" with id: %s',
@@ -50,19 +50,19 @@ package Werk::Executor {
 					die( $thread->error() )
 						if( $thread->error() );
 
-					$context->set_key( $id => $result );
+					$context->set_result( $id => $result );
 				}
 			} else {
 				$self->log()->debug( sprintf( '+ Running 1 task in stage: %d', $index ) );
 
-				# NOTE: This is an simple optiomization, no need to create a
+				# NOTE: This is an simple optimization, no need to create a
 				# new process for a single task.
 				my $task = shift( @{ $stage } );
 
 				$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
 				my $result= $task->run_wrapper( $context );
 
-				$context->set_key( $task->id(), $result );
+				$context->set_result( $task->id(), $result );
 			}
 
 			$index++;
