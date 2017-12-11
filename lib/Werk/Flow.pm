@@ -143,7 +143,7 @@ Werk::Flow
 
 =head2 get_tasks
 
-=head2 get_edges
+=head2 get_deps
 
 =head2 add_deps
 
