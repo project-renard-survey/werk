@@ -2,7 +2,14 @@ package Werk::Flow {
 	use Moose;
 
 	use Graph;
+
 	use GraphViz2;
+
+	use JSON::XS qw( decode_json );
+
+	use Class::Load qw( load_class );
+
+	use File::Slurp qw( read_file );
 
 	has 'title' => (
 		is => 'ro',
@@ -65,6 +72,45 @@ package Werk::Flow {
 		);
 	}
 
+	sub from_json {
+		my ( $proto, $json ) = @_;
+
+		my $data = decode_json( $json );
+
+		my $flow = Werk::Flow->new(
+			$data->{meta} || {},
+		);
+
+		my %tasks = ();
+		foreach my $id ( keys( %{ $data->{tasks} } ) ) {
+			my $definition = $data->{tasks}->{ $id };
+
+			load_class( $definition->{class} );
+			$tasks{ $id } = $definition->{class}->new(
+				id => $id,
+				%{ $definition->{args} || {} }
+			);
+		}
+
+		foreach my $from ( grep { exists( $tasks{ $_ } ) } keys( %{ $data->{deps} } ) ) {
+			$flow->add_deps(
+				$tasks{ $from },
+				map { $tasks{ $_ } }
+				grep { exists( $tasks{ $_ } ) }
+					@{ $data->{deps}->{ $from } }
+			)
+		}
+
+		return $flow;
+	}
+
+	sub from_json_file {
+		my ( $proto, $file ) = @_;
+
+		my $content = read_file( $file );
+		return $proto->from_json( $content );
+	}
+
 	__PACKAGE__->meta()->make_immutable();
 }
 
@@ -89,6 +135,10 @@ Werk::Flow
 =head2 add_deps
 
 =head2 draw
+
+=head2 from_json
+
+=head2 from_json_file
 
 =head1 AUTHOR
 

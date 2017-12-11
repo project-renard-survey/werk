@@ -16,6 +16,7 @@ my $builder = Module::Build->new(
 	# NOTE: Keep list sorted!
 	requires => {
 		'Capture::Tiny' => undef,
+		'Class::Load' => undef,
 		'Data::UUID' => undef,
 		'File::Slurp' => undef,
 		'File::Temp' => undef,
@@ -23,6 +24,7 @@ my $builder = Module::Build->new(
 		'forks' => undef,
 		'Graph' => undef,
 		'GraphViz2' => undef,
+		'JSON::XS' => undef,
 		'Moose' => undef,
 		'MooseX::AbstractFactory' => undef,
 		'MooseX::AbstractMethod' => undef,
