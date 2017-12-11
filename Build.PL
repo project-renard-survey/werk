@@ -33,6 +33,7 @@ my $builder = Module::Build->new(
 		'Sub::Retry' => undef,
 		'Sys::Info::Base' => undef,
 		'Sys::Info::Driver::Linux' => undef,
+		'Test::Deep' => undef,
 		'Test::Exception' => undef,
 		'Test::More' => undef,
 		'Test::Pod::Coverage' => undef,

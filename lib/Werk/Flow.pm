@@ -34,6 +34,18 @@ package Werk::Flow {
 		}
 	);
 
+	sub get_tasks {
+		my $self = shift();
+
+		return $self->graph()->vertices();
+	}
+
+	sub get_deps {
+		my $self = shift();
+
+		return $self->graph()->edges();
+	}
+
 	sub add_deps {
 		my ( $self, $from, @to ) = @_;
 
@@ -61,10 +73,10 @@ package Werk::Flow {
 				{ text => sprintf( '%s', $_->title() ) },
 				{ text => sprintf( '%s}', $_->description() || 'No description' ) },
 			]
-		) foreach( $self->graph()->vertices() );
+		) foreach( $self->get_tasks() );
 
 		$graph->add_edge( from => $_->[0]->id(), to => $_->[1]->id() )
-			foreach( $self->graph()->edges() );
+			foreach( $self->get_deps() );
 
 		$graph->run(
 			format => $format || 'svg',
@@ -74,12 +86,10 @@ package Werk::Flow {
 
 	sub from_json {
 		my ( $proto, $json ) = @_;
+		my $class = ref( $proto ) || $proto;
 
 		my $data = decode_json( $json );
-
-		my $flow = Werk::Flow->new(
-			$data->{meta} || {},
-		);
+		my $flow = $class->new( $data->{meta} || {} );
 
 		my %tasks = ();
 		foreach my $id ( keys( %{ $data->{tasks} } ) ) {
@@ -92,14 +102,12 @@ package Werk::Flow {
 			);
 		}
 
-		foreach my $from ( grep { exists( $tasks{ $_ } ) } keys( %{ $data->{deps} } ) ) {
-			$flow->add_deps(
-				$tasks{ $from },
-				map { $tasks{ $_ } }
-				grep { exists( $tasks{ $_ } ) }
-					@{ $data->{deps}->{ $from } }
-			)
-		}
+		$flow->add_deps(
+			$tasks{ $_ },
+			map { $tasks{ $_ } }
+			grep { exists( $tasks{ $_ } ) }
+				@{ $data->{deps}->{ $_ } }
+		) foreach ( grep { exists( $tasks{ $_ } ) } keys( %{ $data->{deps} } ) );
 
 		return $flow;
 	}
@@ -108,6 +116,7 @@ package Werk::Flow {
 		my ( $proto, $file ) = @_;
 
 		my $content = read_file( $file );
+
 		return $proto->from_json( $content );
 	}
 
@@ -131,6 +140,10 @@ Werk::Flow
 =head2 graph
 
 =head1 METHODS
+
+=head2 get_tasks
+
+=head2 get_edges
 
 =head2 add_deps
 
