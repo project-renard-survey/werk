@@ -34,17 +34,9 @@ package Werk::Flow {
 		}
 	);
 
-	sub get_tasks {
-		my $self = shift();
+	sub get_tasks { shift()->graph()->vertices() }
 
-		return $self->graph()->vertices();
-	}
-
-	sub get_deps {
-		my $self = shift();
-
-		return $self->graph()->edges();
-	}
+	sub get_deps { shift()->graph()->edges() }
 
 	sub add_deps {
 		my ( $self, $from, @to ) = @_;
@@ -86,6 +78,7 @@ package Werk::Flow {
 
 	sub from_json {
 		my ( $proto, $json ) = @_;
+
 		my $class = ref( $proto ) || $proto;
 
 		my $data = decode_json( $json );

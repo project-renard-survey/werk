@@ -28,7 +28,7 @@ package Werk::Task {
 	has 'timeout' => (
 		is => 'ro',
 		isa => 'Int',
-		default => 60,
+		default => 60, #seconds
 	);
 
 	has 'retries' => (
@@ -40,7 +40,7 @@ package Werk::Task {
 	has 'retry_delay' => (
 		is => 'ro',
 		isa => 'Int',
-		default => 1,
+		default => 1, # seconds
 	);
 
 	with 'MooseX::Log::Log4perl';
@@ -65,6 +65,12 @@ package Werk::Task {
 				return $out;
 			}
 		);
+	}
+
+	sub abort {
+		my $self = shift();
+
+		# TODO: Implement this!
 	}
 
 	__PACKAGE__->meta()->make_immutable();
@@ -95,6 +101,8 @@ Werk::Task
 =head1 METHODS
 
 =head2 run_wrapper
+
+=head2 abort
 
 =head1 AUTHOR
 

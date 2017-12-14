@@ -34,6 +34,8 @@ push( @{ $deps->{ $_->[0]->id() } }, $_->[1]->id() )
 
 eq_deeply( $deps, $data->{deps} );
 
+# $flow->draw( 'test.svg' );
+
 done_testing();
 
 __DATA__
@@ -47,47 +49,65 @@ __DATA__
 	"tasks" : {
 		"download" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "File downloader"
+			}
 		},
 
 		"extractor" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" :  "Content extractor"
+			}
 		},
 
 		"tokenizer" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Word tokenizer"
+			}
 		},
 
 		"ner_person" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Name extractor"
+			}
 		},
 
 		"ner_company" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Company extractor"
+			}
 		},
 
 		"ner_address" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Title extractor"
+			}
 		},
 
 		"re_person_address" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Person-Address relation extractor"
+			}
 		},
 
 		"re_company_address" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Company-Address relation extractor"
+			}
 		},
 
 		"save" : {
 			"class" : "Werk::Task::Dummy",
-			"args" : {}
+			"args" : {
+				"title" : "Persist in database"
+			}
 		}
 	},
 
