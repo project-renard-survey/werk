@@ -6,6 +6,8 @@ package Werk::Executor {
 	use forks ( exit => 'threads_only' );
 	use forks::shared;
 
+	use Class::Load qw( load_class );
+
 	use Werk::Context;
 
 	abstract( 'get_execution_plan' );
@@ -16,7 +18,9 @@ package Werk::Executor {
 		my ( $self, $flow, $params ) = @_;
 
 		my $context = Werk::Context->new(
-			globals => $params || {}
+			executor => ref( $self ),
+			globals => $params || {},
+			status => 'running',
 		);
 
 		$self->log()->debug( sprintf( '* Running workflow "%s" with id: %s',
@@ -50,6 +54,20 @@ package Werk::Executor {
 					die( $thread->error() )
 						if( $thread->error() );
 
+					# FIXME: It seems that the returned object is not blessed correctly and
+					#  even if Data::Dumper seems to show that the object has the correct type
+					# in fact is not a proper Moose object. This could be a problem in the future
+					# if we need to pass objects from the custom tasks.
+
+					if( defined( $result ) && ref( $result ) eq 'Werk::Result::Abort' ) {
+						my $class = blessed( $result );
+						load_class( $class );
+						$class->meta()->rebless_instance( $result );
+
+						$self->log()->warn( $result->message() );
+						$context->status( 'aborted' ) && return $context;
+					}
+
 					$context->set_result( $id => $result );
 				}
 			} else {
@@ -62,12 +80,18 @@ package Werk::Executor {
 				$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
 				my $result= $task->run_wrapper( $context );
 
+				if( defined( $result ) && ref( $result ) eq 'Werk::Result::Abort' ) {
+					$self->log->warn( $result->message() );
+					$context->status( 'aborted' ) && return $context
+				}
+
 				$context->set_result( $task->id(), $result );
 			}
 
 			$index++;
 		}
 
+		$context->status( 'success' );
 		return $context;
 	}
 

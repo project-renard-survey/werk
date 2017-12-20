@@ -1,5 +1,6 @@
 package Werk::Context {
 	use Moose;
+	use Moose::Util::TypeConstraints;
 
 	use MooseX::Storage;
 
@@ -38,6 +39,18 @@ package Werk::Context {
 			get_result => 'get',
 			has_result => 'exists',
 		}
+	);
+
+	has 'executor' => (
+		is => 'ro',
+		isa => 'Maybe[Str]',
+		default => undef,
+	);
+
+	has 'status' => (
+		is => 'rw',
+		isa => enum( [ qw( none running aborted success ) ] ),
+		default => 'none',
 	);
 
 	has 'created' => (
@@ -80,6 +93,10 @@ Werk::Context
 =head2 globals
 
 =head2 results
+
+=head2 executor
+
+=head2 status
 
 =head2 created
 

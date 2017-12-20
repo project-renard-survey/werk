@@ -28,17 +28,17 @@ can_ok( $flow, qw( add_deps  ) );
 {
 	my $load = Werk::Task::Shell->new(
 		id => 'load',
-		script => 'ls -al',
+		script => 'date'
 	);
 
 	my $enrich = Werk::Task::Sleep->new(
 		id => 'enrich',
-		seconds => 5
+		seconds => 2
 	);
 
 	my $reduce = Werk::Task::Sleep->new(
 		id => 'reduce',
-		seconds => 3
+		seconds => 1
 	);
 
 	my $save = Werk::Task::Code->new(
@@ -48,7 +48,7 @@ can_ok( $flow, qw( add_deps  ) );
 
 			my $load = $context->get_result( 'load' );
 			my @lines = map { uc( $_ ) }
-				grep { $_ =~ /^d/ }
+				grep { $_=~ /^d/ }
 				split( "\n", $load->{stdout} );
 
 			return \@lines;
@@ -57,7 +57,7 @@ can_ok( $flow, qw( add_deps  ) );
 
 	my $sleep = Werk::Task::Sleep->new(
 		id => 'sleep',
-		seconds => 3,
+		seconds => 1,
 	);
 
 	$flow->add_deps( $load, $enrich, $reduce );
@@ -74,12 +74,13 @@ can_ok( $flow, qw( add_deps  ) );
 		alias => 'Batman',
 	};
 
-	my $scheduler = Werk::ExecutorFactory->create( 'Parallel' );
-	isa_ok( $scheduler, 'Werk::Executor' );
-	can_ok( $scheduler, qw( execute ) );
+	my $executor = Werk::ExecutorFactory->create( 'Parallel' );
+	isa_ok( $executor, 'Werk::Executor' );
+	can_ok( $executor, qw( execute ) );
 
 	# $scheduler->draw( $flow, 'svg', 'plan.svg' );
-	my $context = $scheduler->execute( $flow, $data );
+
+	my $context = $executor->execute( $flow, $data );
 
 	# use Data::Dumper;
 	# warn( Dumper( $context ) );
