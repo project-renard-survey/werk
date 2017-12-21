@@ -1,6 +1,5 @@
 package Werk::Context {
 	use Moose;
-	use Moose::Util::TypeConstraints;
 
 	use MooseX::Storage;
 
@@ -47,12 +46,6 @@ package Werk::Context {
 		default => undef,
 	);
 
-	has 'status' => (
-		is => 'rw',
-		isa => enum( [ qw( none running aborted success ) ] ),
-		default => 'none',
-	);
-
 	has 'created' => (
 		is => 'ro',
 		isa => 'Num',
@@ -95,8 +88,6 @@ Werk::Context
 =head2 results
 
 =head2 executor
-
-=head2 status
 
 =head2 created
 

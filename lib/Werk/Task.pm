@@ -7,8 +7,6 @@ package Werk::Task {
 
 	use Sub::Retry;
 
-	use Werk::ResultFactory;
-
 	has 'id' => (
 		is => 'ro',
 		isa => 'Str',
@@ -49,16 +47,10 @@ package Werk::Task {
 
 	abstract( 'run' );
 
-	sub abort {
-		my ( $self, $message ) = @_;
-
-		return Werk::ResultFactory->create( 'Abort', { message => $message ||= 'Aborted' } );
-	}
-
 	sub run_wrapper {
 		my ( $self, $context ) = @_;
 
-		return retry( $self->retries(), $self->retry_delay(),
+		my $result = retry( $self->retries(), $self->retry_delay(),
 			sub {
 				my $n = shift();
 
@@ -75,6 +67,8 @@ package Werk::Task {
 				return $out;
 			}
 		);
+
+		return $result;
 	}
 
 	__PACKAGE__->meta()->make_immutable();
@@ -105,8 +99,6 @@ Werk::Task
 =head1 METHODS
 
 =head2 run_wrapper
-
-=head2 abort
 
 =head1 AUTHOR
 

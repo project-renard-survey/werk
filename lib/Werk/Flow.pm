@@ -50,6 +50,7 @@ package Werk::Flow {
 
 		my $graph = GraphViz2->new(
 			global => {
+				name => $self->title(),
 				directed => 1,
 			},
 			node => {
