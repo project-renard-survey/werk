@@ -10,6 +10,12 @@ package Werk::Task::Shell {
 
 	use Capture::Tiny ':all';
 
+	has 'interpreter' => (
+		is => 'ro',
+		isa => 'Str',
+		default => '/bin/bash'
+	);
+
 	has 'script' => (
 		is => 'ro',
 		isa => 'Str',
@@ -55,7 +61,7 @@ package Werk::Task::Shell {
 		write_file( $file, { binmode => ':raw' }, $output );
 
 		my ( $out, $err, $code ) = capture {
-			system( 'bash', $file )
+			system( $self->interpreter(), $file )
 		};
 
 		return {

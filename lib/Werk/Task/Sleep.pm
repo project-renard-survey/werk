@@ -14,9 +14,7 @@ package Werk::Task::Sleep {
 	sub run {
 		my ( $self, $context ) = @_;
 
-		my $actual = sleep( $self->seconds() );
-
-		return $actual;
+		return sleep( $self->seconds() );
 	}
 
 	__PACKAGE__->meta()->make_immutable();

@@ -91,7 +91,7 @@ my @urls = (
 	'http://domain.com/docs/1000.html',
 );
 
-my $executor = Werk::ExecutorFactory->create( 'Parallel' );
+my $executor = Werk::ExecutorFactory->create( 'Parallel', { parallel_tasks => 5 } );
 $executor->execute( $flow, { url => $_ } )
 	foreach( @urls );
 ```

@@ -34,7 +34,7 @@ foreach my $index ( 1 .. 5 ) {
 my $last = Werk::Task::Code->new(
 	id => 'last',
 	code => sub {
-		my ( $c, $t) = @_;
+		my ( $t, $c ) = @_;
 
 		use Data::Dumper;
 		print( Dumper( $c ) );
@@ -43,5 +43,5 @@ my $last = Werk::Task::Code->new(
 
 $flow->add_deps( $after, $last );
 
-Werk::ExecutorFactory->create( 'Parallel', { max_parallel_tasks => 5 } )
+Werk::ExecutorFactory->create( 'Parallel', { parallel_tasks => 5 } )
 	->execute( $flow );

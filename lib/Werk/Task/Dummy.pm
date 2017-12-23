@@ -3,11 +3,7 @@ package Werk::Task::Dummy {
 
 	extends 'Werk::Task';
 
-	sub run {
-		my ( $self, $context ) = @_;
-
-		return undef;
-	}
+	sub run {}
 
 	__PACKAGE__->meta()->make_immutable();
 }
