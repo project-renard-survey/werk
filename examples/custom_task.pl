@@ -61,6 +61,6 @@ package main {
 		$flow->add_deps( $task, $dumper );
 	}
 
-	Werk::ExecutorFactory->create( 'Parallel', { parallel_tasks => 5 } )
+	Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } )
 		->execute( $flow, {} );
 }

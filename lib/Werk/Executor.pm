@@ -3,80 +3,8 @@ package Werk::Executor {
 
 	use MooseX::AbstractMethod;
 
-	use forks ( exit => 'threads_only' );
-	use forks::shared;
-
-	use Werk::Context;
-
 	abstract( 'get_execution_plan' );
-
-	with 'MooseX::Log::Log4perl';
-
-	sub execute {
-		my ( $self, $flow, $params ) = @_;
-
-		my $context = Werk::Context->new(
-			executor => ref( $self ),
-			globals => $params || {},
-		);
-
-		$self->log()->debug( sprintf( '* Running workflow "%s" with id: %s',
-				$flow->title(),
-				$context->session_id(),
-			)
-		);
-
-		my @stages = $self->get_execution_plan( $flow );
-
-		my $index = 0;
-		foreach my $stage ( @stages ) {
-			my %results = ();
-
-			if( scalar( @{ $stage } ) > 1 ) {
-				$self->log()->debug( sprintf( '+ Running %d tasks in parallel in stage: %d',
-						scalar( @{ $stage } ),
-						$index,
-					)
-				);
-
-				my @threads = ();
-				foreach my $task ( @{ $stage }  ) {
-					$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
-					push( @threads,
-						async { [ $task->id(), $task->run_wrapper( $context ) ] }
-					);
-				}
-
-				foreach my $thread ( @threads ) {
-					my ( $id, $result ) = @{ $thread->join() };
-
-					die( $thread->error() )
-						if( $thread->error() );
-
-					$results{ $id } = $result;
-				}
-			} else {
-				$self->log()->debug( sprintf( '+ Running 1 task in stage: %d', $index ) );
-
-				# NOTE: This is an simple optimization, no need to create a new process for a single task.
-				my $task = shift( @{ $stage } );
-
-				$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
-				my $result= $task->run_wrapper( $context );
-
-				$results{ $task->id() } = $result;
-			}
-
-			while( my ( $id, $result ) = each( %results ) ) {
-				# TODO: Rebless stuff here ...
-				$context->set_result( $id, $result );
-			}
-
-			$index++;
-		}
-
-		return $context;
-	}
+	abstract( 'execute' );
 
 	sub draw {
 		my ( $self, $flow, $output, $format ) = @_;
@@ -143,8 +71,6 @@ __END__
 Werk::Executor
 
 =head1 METHODS
-
-=head2 execute
 
 =head2 draw
 

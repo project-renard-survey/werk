@@ -126,7 +126,7 @@ package main {
 
 	$flow->draw( 'share/images/documentation_dag.svg' );
 
-	Werk::ExecutorFactory->create( 'Parallel', { parallel_tasks => 0 } )
+	Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 0 } )
 		->draw( $flow, 'share/images/documentation_plan.svg' )
 }
 

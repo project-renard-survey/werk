@@ -74,7 +74,7 @@ can_ok( $flow, qw( add_deps  ) );
 		alias => 'Batman',
 	};
 
-	my $executor = Werk::ExecutorFactory->create( 'Parallel' );
+	my $executor = Werk::ExecutorFactory->create( 'Local' );
 	isa_ok( $executor, 'Werk::Executor' );
 	can_ok( $executor, qw( execute ) );
 

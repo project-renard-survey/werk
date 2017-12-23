@@ -91,12 +91,12 @@ my @urls = (
 	'http://domain.com/docs/1000.html',
 );
 
-my $executor = Werk::ExecutorFactory->create( 'Parallel', { parallel_tasks => 5 } );
+my $executor = Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } );
 $executor->execute( $flow, { url => $_ } )
 	foreach( @urls );
 ```
 
-The execution plan for the workflow above and the **Parallel** executor kinda looks like this:
+The execution plan for the workflow above and the **Local** executor kinda looks like this:
 
 ![Plan](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_plan.svg?sanitize=true)
 
@@ -120,9 +120,7 @@ Smallest unit of work that represents some specific isolated functionality. Thes
 
 For a given graph the executor determines the order of tasks execution by generating an execution plan. In parallel mode it will try to determine the degree of parallelism if possible.
 
-* Werk::Executor::Sequential
-
-* Werk::Executor::Parallel
+* Werk::Executor::Local
 
 ### Context
 

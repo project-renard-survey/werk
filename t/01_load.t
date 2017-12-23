@@ -17,7 +17,6 @@ require_ok( 'Werk::Task::Sleep' );
 
 require_ok( 'Werk::Executor' );
 require_ok( 'Werk::ExecutorFactory' );
-require_ok( 'Werk::Executor::Sequential' );
-require_ok( 'Werk::Executor::Parallel' );
+require_ok( 'Werk::Executor::Local' );
 
 done_testing();
