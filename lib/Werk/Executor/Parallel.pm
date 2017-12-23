@@ -5,7 +5,7 @@ package Werk::Executor::Parallel {
 
 	use Sys::Info::Device::CPU;
 
-	has 'max_parallel_tasks' => (
+	has 'parallel_tasks' => (
 		is => 'ro',
 		isa => 'Int',
 		default => sub {
@@ -32,17 +32,17 @@ package Werk::Executor::Parallel {
 		my @stages = ();
 		while( my @a = sort( grep { ! %{ $ba{ $_ } } } keys( %ba ) ) ) {
 			push( @stages, [ map { $tasks{ $_ } } @a ] );
-			delete( @ba{@a} );
-			delete( @{$_}{ @a } )
+			delete( @ba{ @a } );
+			delete( @{ $_ }{ @a } )
 				foreach( values( %ba ) );
 		}
 
 		my @results = reverse( @stages );
 
-		if( $self->max_parallel_tasks() ) {
+		if( $self->parallel_tasks() ) {
 			my @batches = ();
 			foreach my $stage ( @results ) {
-				while( my @batch = splice( @{ $stage }, 0, $self->max_parallel_tasks() ) ) {
+				while( my @batch = splice( @{ $stage }, 0, $self->parallel_tasks() ) ) {
 					push( @batches, \@batch );
 				}
 			}
@@ -66,7 +66,7 @@ Werk::Executor::Parallel
 
 =head1 ATTRIBUTES
 
-=head2 max_parallel_tasks
+=head2 parallel_tasks
 
 =head1 METHODS
 
