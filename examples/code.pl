@@ -12,17 +12,17 @@ use Werk::ExecutorFactory;
 Log::Log4perl->easy_init( $DEBUG );
 
 my $flow = Werk::Flow->new(
-	title => 'Code Example',
+	title => 'CodeExample',
 	description => 'Workflow using Code tasks',
 );
 
 my $dumper = Werk::Task::Code->new(
 	id => 'last',
 	code => sub {
-		my ( $c, $t ) = @_;
+		my ( $t, $c ) = @_;
 
 		use Data::Dumper;
-		print( Dumper( $c->serialize() ) );
+		print( Dumper( $c ) );
 	}
 );
 
@@ -30,7 +30,7 @@ foreach my $index ( 1 .. 10 ) {
 	my $task = Werk::Task::Code->new(
 		id => sprintf( 'task_%d', $index ),
 		code => sub {
-			my ( $c, $t ) = @_;
+			my ( $t, $c ) = @_;
 
 			my $value = int( rand( $c->get_global( 'max_sleep' ) ) );
 			$t->log()->debug( sprintf( 'Sleeping for %d', $value ) );

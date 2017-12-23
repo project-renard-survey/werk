@@ -47,7 +47,7 @@ package main {
 			my $c = shift();
 
 			use Data::Dumper;
-			print( Dumper( $c->serialize() ) );
+			print( Dumper( $c ) );
 		}
 	);
 

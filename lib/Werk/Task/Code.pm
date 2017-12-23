@@ -13,7 +13,7 @@ package Werk::Task::Code {
 		my ( $self, $context ) = @_;
 
 		my $result = $self->code()
-			->( $context, $self );
+			->( $self, $context );
 
 		return $result;
 	}

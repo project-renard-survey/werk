@@ -42,7 +42,7 @@ __DATA__
 
 {
 	"meta" : {
-		"title" : "Sample workflow",
+		"title" : "SampleWorkflow",
 		"description": "A sample workflow for deserilization"
 	},
 

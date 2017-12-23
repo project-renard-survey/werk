@@ -13,7 +13,7 @@ use Werk::ExecutorFactory;
 Log::Log4perl->easy_init( $DEBUG );
 
 my $flow = Werk::Flow->new(
-	title => 'Shell Example',
+	title => 'ShellExample',
 	description => 'Workflow example using Shell tasks',
 );
 
@@ -37,7 +37,7 @@ my $last = Werk::Task::Code->new(
 		my ( $c, $t) = @_;
 
 		use Data::Dumper;
-		print( Dumper( $c->serialize() ) );
+		print( Dumper( $c ) );
 	}
 );
 

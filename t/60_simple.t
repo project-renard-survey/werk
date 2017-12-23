@@ -18,7 +18,7 @@ require_ok( 'Werk::Task::Shell' );
 require_ok( 'Werk::Task::Sleep' );
 
 my $flow = Werk::Flow->new(
-	title => 'Data load',
+	title => 'Dataload',
 	description => 'Sample for a simple DAG'
 );
 
@@ -44,9 +44,9 @@ can_ok( $flow, qw( add_deps  ) );
 	my $save = Werk::Task::Code->new(
 		id => 'save',
 		code => sub {
-			my ( $context, $parent ) = @_;
+			my ( $t, $c ) = @_;
 
-			my $load = $context->get_result( 'load' );
+			my $load = $c->get_result( 'load' );
 			my @lines = map { uc( $_ ) }
 				grep { $_=~ /^d/ }
 				split( "\n", $load->{stdout} );

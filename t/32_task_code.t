@@ -11,7 +11,7 @@ require_ok( 'Werk::Task::Code' );
 my $task = Werk::Task::Code->new(
 	id => 'Code',
 	code => sub {
-		my ( $c, $t ) = @_;
+		my ( $t, $c ) = @_;
 
 		return sprintf( 'Hello from %s!', $c->get_global( 'name' ) );
 	}

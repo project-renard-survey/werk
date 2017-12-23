@@ -15,7 +15,7 @@ use Werk::Flow;
 use Werk::ExecutorFactory;
 
 my $flow = Werk::Flow->new(
-	title => 'Example workflow',
+	title => 'ExampleWorkflow',
 	description => 'A simple crawler and data extraction pipeline',
 );
 
