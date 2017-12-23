@@ -1,11 +1,7 @@
 package Werk::Context {
 	use Moose;
 
-	use MooseX::Storage;
-
 	use Data::UUID;
-
-	with Storage();
 
 	has 'session_id' => (
 		is => 'ro',
@@ -52,22 +48,6 @@ package Werk::Context {
 		default => sub { time() },
 	);
 
-	around 'pack' => sub {
-		my $orig = shift();
-		my $self = shift();
-
-		my $result = $self->$orig( @_ );
-		delete( $result->{__CLASS__} );
-
-		return $result;
-	};
-
-	sub serialize {
-		my $self = shift();
-
-		return $self->pack( @_ );
-	}
-
 	__PACKAGE__->meta()->make_immutable();
 }
 
@@ -104,8 +84,6 @@ Werk::Context
 =head2 set_result
 
 =head2 has_result
-
-=head2 serialize
 
 =head1 AUTHOR
 

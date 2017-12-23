@@ -30,6 +30,8 @@ package Werk::Executor {
 
 		my $index = 0;
 		foreach my $stage ( @stages ) {
+			my %results = ();
+
 			if( scalar( @{ $stage } ) > 1 ) {
 				$self->log()->debug( sprintf( '+ Running %d tasks in parallel in stage: %d',
 						scalar( @{ $stage } ),
@@ -51,19 +53,23 @@ package Werk::Executor {
 					die( $thread->error() )
 						if( $thread->error() );
 
-					$context->set_result( $id, $result );
+					$results{ $id } = $result;
 				}
 			} else {
 				$self->log()->debug( sprintf( '+ Running 1 task in stage: %d', $index ) );
 
-				# NOTE: This is an simple optimization, no need to create a
-				# new process for a single task.
+				# NOTE: This is an simple optimization, no need to create a new process for a single task.
 				my $task = shift( @{ $stage } );
 
 				$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
 				my $result= $task->run_wrapper( $context );
 
-				$context->set_result( $task->id(), $result );
+				$results{ $task->id() } = $result;
+			}
+
+			while( my ( $id, $result ) = each( %results ) ) {
+				# TODO: Rebless stuff here ...
+				$context->set_result( $id, $result );
 			}
 
 			$index++;

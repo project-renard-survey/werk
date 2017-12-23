@@ -40,8 +40,12 @@ package Werk::Task::Shell {
 		my ( $self, $context ) = @_;
 
 		my $params = {
-				id => $self->id(),
-				context => $context->serialize(),
+			id => $self->id(),
+			context => {
+				session_id => $context->session_id(),
+				globals => $context->globals(),
+				results => $context->results(),
+			}
 		};
 
 		my $output = $self->_template()
