@@ -77,7 +77,7 @@ package DataFlow {
 }
 ```
 
-And this can be called somewhere elese in a block like this:
+And this can be called somewhere else in a block like this:
 
 ```perl
 
@@ -90,7 +90,7 @@ $flow->draw( 'share/images/documentation_dag.svg' );
 
 ```
 
-We can take a look at the workflow diagram by calling the `draw` method:
+We can take a look at the work-flow diagram by calling the `draw` method:
 
 ```perl
 $flow->draw( 'my_flow.svg' );
@@ -143,7 +143,9 @@ For a given graph the executor determines the order of tasks execution by genera
 
 ### Context
 
-## Setting up a development environment
+## Installation
+
+### Development environment
 
 ```bash
 vagrant up
@@ -157,7 +159,7 @@ perl Build.PL
 ./Build
 ./Build test
 ```
-## Building it from source
+### Building it from source
 
 ```bash
 perl Build.PL
@@ -166,4 +168,12 @@ perl Build.PL
 ./Build
 ./Build test
 ./Build install
+```
+
+### Installing from Github
+
+In order to use **cpanm** with Git urls you need the **git** package installed on your machine.
+
+```bash
+cpanm git://github.com/marghidanu/werk.git
 ```
