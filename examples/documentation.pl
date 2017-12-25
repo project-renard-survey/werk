@@ -125,8 +125,6 @@ package DataFlow {
 	__PACKAGE__->meta()->make_immutable();
 }
 
-1;
-
 package main {
 	use Moose;
 

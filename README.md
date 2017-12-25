@@ -11,66 +11,83 @@
 In the example below we'll take a list of URLs and run it trough our pipeline which will download the document and extract some information out of it. The steps described here DO NOT exist in the current package and are used only to describe the functionality of **Werk**.
 
 ```perl
-use Werk::Flow;
-use Werk::ExecutorFactory;
+package DataFlow {
+	use Moose;
 
-my $flow = Werk::Flow->new(
-	title => 'ExampleWorkflow',
+	extends 'Werk::Flow';
+
+	sub BUILD {
+		my $self = shift();
+
+		my $download = Werk::Task::Custom::Download->new(
+			id => 'download',
+			timeout => 5,
+			use_robots => 1,
+		);
+
+		my $content_extractor = Werk::Task::Custom::ContentExtractor->new(
+			id => 'extractor',
+			tool => 'Boilerpipe',
+			tool_args => {
+				strategy => 'ArticleExtractor'
+			}
+		);
+		$self->add_deps( $download, $content_extractor );
+
+		my $tokenizer = Werk::Task::Common::NLP::Tokenizer->new(
+			id => 'tokenizer'
+		);
+		$self->add_deps( $content_extractor, $tokenizer );
+
+		my $agg_people_address = Werk::Task::Common::NLP::RelationExtractor->new(
+			id => 'aggregator_people_address',
+			types => [ qw( person address ) ],
+		);
+
+		my $agg_companies_address = Werk::Task::Common::NLP::RelationExtractor->new(
+			id => 'aggregator_companies_address',
+			types => [ qw( company address ) ],
+		);
+
+		foreach my $type ( qw( person company address ) ) {
+			my $ner_task = Werk::Task::Common::NLP::NER->new(
+				id => sprintf( 'ner_%s', $type ),
+				type => $type,
+			);
+
+			$self->add_deps( $tokenizer, $ner_task );
+			$self->add_deps( $ner_task, $agg_people_address, $agg_companies_address );
+		}
+
+		my $save = Werk::Task::Common::Data::Save->new(
+			id => 'save',
+			type => 'MongoDB',
+			args => {
+				server => 'localhost',
+				port => 27017,
+				namespace => 'crawler.documents',
+			}
+		);
+
+		$self->add_deps( $agg_people_address, $save );
+		$self->add_deps( $agg_companies_address, $save );
+	}
+
+	__PACKAGE__->meta()->make_immutable();
+}
+```
+
+And this can be called somewhere elese in a block like this:
+
+```perl
+
+my $flow = DataFlow->new(
+	title => 'DataWorkflow',
 	description => 'A simple crawler and data extraction pipeline',
 );
 
-my $download = Werk::Task::Custom::Download->new(
-	id => 'download',
-	http_timeout => 5,
-	use_robots => 1,
-);
+$flow->draw( 'share/images/documentation_dag.svg' );
 
-my $content_extractor = Werk::Task::Custom::ContentExtractor->new(
-	id => 'extractor',
-	tool => 'Boilerpipe',
-	tool_args => {
-		strategy => 'ArticleExtractor'
-	}
-);
-$flow->add_deps( $download, $content_extractor );
-
-my $tokenizer = Werk::Task::Common::NLP::Tokenizer->new(
-	id => 'tokenizer'
-);
-$flow->add_deps( $content_extractor, $tokenizer );
-
-my $agg_people_address = Werk::Task::Common::NLP::RelationExtractor->new(
-	id => 'aggregator_people_address',
-	types => [ qw( person address ) ],
-);
-
-my $agg_companies_address = Werk::Task::Common::NLP::RelationExtractor->new(
-	id => 'aggregator_companies_address',
-	types => [ qw( company address ) ],
-);
-
-foreach my $type ( qw( person company address ) ) {
-	my $ner_task = Werk::Task::Common::NLP::NER->new(
-		id => sprintf( 'ner_%s', $type ),
-		type => $type,
-	);
-
-	$flow->add_deps( $tokenizer, $ner_task );
-	$flow->add_deps( $ner_task, $agg_people_address, $agg_companies_address );
-}
-
-my $save = Werk::Task::Common::Data::Save->new(
-	id => 'save',
-	type => 'MongoDB',
-	args => {
-		server => 'localhost',
-		port => 27017,
-		namespace => 'crawler.documents',
-	}
-);
-
-$flow->add_deps( $agg_people_address, $save );
-$flow->add_deps( $agg_companies_address, $save );
 ```
 
 We can take a look at the workflow diagram by calling the `draw` method:
@@ -78,8 +95,8 @@ We can take a look at the workflow diagram by calling the `draw` method:
 ```perl
 $flow->draw( 'my_flow.svg' );
 ```
-![DAG](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_dag.svg?sanitize=true)
 
+![DAG](https://raw.githubusercontent.com/marghidanu/werk/master/share/images/documentation_dag.svg?sanitize=true)
 
 And now assuming we have a list of URLs we can trigger our "werk-flow" on it:
 
