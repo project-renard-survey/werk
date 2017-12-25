@@ -1,47 +1,55 @@
 #!/usr/bin/env perl
 
-use strict;
-use warnings;
+package ShellFlow {
+	use Moose;
 
-use Log::Log4perl qw( :easy );
+	extends 'Werk::Flow';
 
-use Werk::Flow;
-use Werk::Task::Shell;
-use Werk::Task::Code;
-use Werk::ExecutorFactory;
+	use Werk::Task::Shell;
+	use Werk::Task::Dumper;
 
-Log::Log4perl->easy_init( $DEBUG );
+	sub BUILD {
+		my $self = shift();
 
-my $flow = Werk::Flow->new(
-	title => 'ShellExample',
-	description => 'Workflow example using Shell tasks',
-);
+		my $after = Werk::Task::Shell->new(
+			id => 'after_loop',
+			script => 'echo -n 1',
+		);
 
-my $after = Werk::Task::Shell->new(
-	id => 'after_loop',
-	script => 'echo -n 1',
-);
+		foreach my $index ( 1 .. 5 ) {
+			my $task = Werk::Task::Shell->new(
+				id => sprintf( 'task_%d', $index ),
+				script => 'echo -n "{$id}" && sleep 1',
+			);
 
-foreach my $index ( 1 .. 5 ) {
-	my $task = Werk::Task::Shell->new(
-		id => sprintf( 'task_%d', $index ),
-		script => 'echo -n "{$id}" && sleep 1',
-	);
+			$self->add_deps( $task, $after );
+		}
 
-	$flow->add_deps( $task, $after );
+		my $last = Werk::Task::Dumper->new(
+			id => 'last'
+		);
+
+		$self->add_deps( $after, $last );
+	}
+
+	__PACKAGE__->meta()->make_immutable();
 }
 
-my $last = Werk::Task::Code->new(
-	id => 'last',
-	code => sub {
-		my ( $t, $c ) = @_;
+package main {
+	use strict;
+	use warnings;
 
-		use Data::Dumper;
-		print( Dumper( $c ) );
-	}
-);
+	use Log::Log4perl qw( :easy );
 
-$flow->add_deps( $after, $last );
+	use Werk::ExecutorFactory;
 
-Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } )
-	->execute( $flow );
+	Log::Log4perl->easy_init( $DEBUG );
+
+	my $flow = ShellFlow->new(
+		title => 'ShellFlow',
+		description => 'Workflow example using Shell tasks',
+	);
+
+	Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } )
+		->execute( $flow );
+}

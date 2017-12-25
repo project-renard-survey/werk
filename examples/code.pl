@@ -1,45 +1,54 @@
 #!/usr/bin/env perl
 
-use strict;
-use warnings;
+package CodeFlow {
+	use Moose;
 
-use Log::Log4perl qw( :easy );
+	extends 'Werk::Flow';
 
-use Werk::Flow;
-use Werk::Task::Code;
-use Werk::ExecutorFactory;
+	use Werk::Task::Code;
+	use Werk::Task::Dumper;
 
-Log::Log4perl->easy_init( $DEBUG );
+	sub BUILD {
+		my $self = shift();
 
-my $flow = Werk::Flow->new(
-	title => 'CodeExample',
-	description => 'Workflow using Code tasks',
-);
+		my $dumper = Werk::Task::Dumper->new(
+			id => 'last'
+		);
 
-my $dumper = Werk::Task::Code->new(
-	id => 'last',
-	code => sub {
-		my ( $t, $c ) = @_;
+		foreach my $index ( 1 .. 10 ) {
+			my $task = Werk::Task::Code->new(
+				id => sprintf( 'task_%d', $index ),
+				code => sub {
+					my ( $t, $c ) = @_;
 
-		use Data::Dumper;
-		print( Dumper( $c ) );
-	}
-);
+					my $value = int( rand( $c->get_global( 'max_sleep' ) ) );
+					$t->log()->debug( sprintf( 'Sleeping for %d', $value ) );
+					return sleep( $value );
+				}
+			);
 
-foreach my $index ( 1 .. 10 ) {
-	my $task = Werk::Task::Code->new(
-		id => sprintf( 'task_%d', $index ),
-		code => sub {
-			my ( $t, $c ) = @_;
-
-			my $value = int( rand( $c->get_global( 'max_sleep' ) ) );
-			$t->log()->debug( sprintf( 'Sleeping for %d', $value ) );
-			return sleep( $value );
+			$self->add_deps( $task, $dumper );
 		}
-	);
+	}
 
-	$flow->add_deps( $task, $dumper );
+	__PACKAGE__->meta()->make_immutable();
 }
 
-Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 0 } )
-	->execute( $flow, { max_sleep => 5 } );
+package main {
+	use strict;
+	use warnings;
+
+	use Log::Log4perl qw( :easy );
+
+	use Werk::ExecutorFactory;
+
+	Log::Log4perl->easy_init( $DEBUG );
+
+	my $flow = CodeFlow->new(
+		title => 'CodeExample',
+		description => 'Workflow using Code tasks',
+	);
+
+	Werk::ExecutorFactory->create( 'Local' )
+		->execute( $flow, { max_sleep => 5 } );
+}

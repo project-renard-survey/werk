@@ -108,11 +108,13 @@ Smallest unit of work that represents some specific isolated functionality. Thes
 
 * Werk::Task::Code
 
+* Werk::Task::Dummy
+
+* Werk::Task::Dumper
+
 * Werk::Task::Shell
 
 * Werk::Task::Sleep
-
-* Werk::Task::Dummy
 
 ### Flow
 
