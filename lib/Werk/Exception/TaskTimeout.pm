@@ -19,3 +19,19 @@ package Werk::Exception::TaskTimeout {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+Werk::Exception::TaskTimeout
+
+=head1 ATTRIBUTES
+
+=head2 id
+
+=head2 timeout
+
+=head1 AUTHOR
+
+Tudor Marghidanu <tudor@marghidanu.com>
