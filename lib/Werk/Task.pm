@@ -7,6 +7,8 @@ package Werk::Task {
 
 	use Sub::Retry;
 
+	use Werk::Exception::TaskTimeout;
+
 	has 'id' => (
 		is => 'ro',
 		isa => 'Str',
@@ -61,8 +63,10 @@ package Werk::Task {
 					sub { $self->run( $context ) }
 				);
 
-				die( sprintf( 'Call to %s timed out after %d seconds', $self->id(), $self->timeout() ) )
-					if( $@ );
+				Werk::Exception::TaskTimeout->throw(
+					id => $self->id(),
+					timeout => $self->timeout(),
+				) if( $@ );
 
 				return $out;
 			}

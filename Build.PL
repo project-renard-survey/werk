@@ -38,6 +38,7 @@ my $builder = Module::Build->new(
 		'Test::More' => undef,
 		'Test::Pod::Coverage' => undef,
 		'Text::Template' => undef,
+		'Throwable' => undef,
 		'Time::HiRes' => undef,
 		'Time::Out' => undef,
 	},
