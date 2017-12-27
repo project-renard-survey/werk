@@ -7,6 +7,7 @@ package Werk::Executor::Local {
 	use forks::shared;
 
 	use Werk::Context;
+	use Werk::Exception::ThreadExecution;
 
 	use Sys::Info::Device::CPU;
 
@@ -98,8 +99,10 @@ package Werk::Executor::Local {
 				foreach my $thread ( @threads ) {
 					my ( $id, $result ) = @{ $thread->join() };
 
-					die( $thread->error() )
-						if( $thread->error() );
+					Werk::Exception::ThreadExecution->throw(
+						id => $id,
+						error => $thread->error()
+					) if( $thread->error() );
 
 					$results{ $id } = $result;
 				}
