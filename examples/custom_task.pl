@@ -5,8 +5,6 @@ package Werk::Task::Custom {
 
 	extends 'Werk::Task';
 
-	with 'MooseX::Log::Log4perl';
-
 	sub run {
 		my ( $self, $context ) = @_;
 
@@ -54,11 +52,7 @@ package main {
 	use strict;
 	use warnings;
 
-	use Log::Log4perl qw( :easy );
-
 	use Werk::ExecutorFactory;
-
-	Log::Log4perl->easy_init( $DEBUG );
 
 	my $flow = CustomTaskFlow->new(
 		title => 'Custom_Task',

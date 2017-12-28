@@ -20,8 +20,6 @@ package Werk::Executor::Local {
 		},
 	);
 
-	with 'MooseX::Log::Log4perl';
-
 	sub get_execution_plan {
 		my ( $self, $flow ) = @_;
 
@@ -69,12 +67,6 @@ package Werk::Executor::Local {
 			globals => $params || {},
 		);
 
-		$self->log()->debug( sprintf( '* Running workflow "%s" with id: %s',
-				$flow->title(),
-				$context->session_id(),
-			)
-		);
-
 		my @stages = $self->get_execution_plan( $flow );
 
 		my $index = 0;
@@ -82,19 +74,9 @@ package Werk::Executor::Local {
 			my %results = ();
 
 			if( scalar( @{ $stage } ) > 1 ) {
-				$self->log()->debug( sprintf( '+ Running %d tasks in parallel in stage: %d',
-						scalar( @{ $stage } ),
-						$index,
-					)
-				);
-
 				my @threads = ();
-				foreach my $task ( @{ $stage }  ) {
-					$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
-					push( @threads,
-						async { [ $task->id(), $task->run_wrapper( $context ) ] }
-					);
-				}
+				push( @threads, async { [ $_->id(), $_->run_wrapper( $context ) ] } )
+					foreach ( @{ $stage } );
 
 				foreach my $thread ( @threads ) {
 					my ( $id, $result ) = @{ $thread->join() };
@@ -107,14 +89,10 @@ package Werk::Executor::Local {
 					$results{ $id } = $result;
 				}
 			} else {
-				$self->log()->debug( sprintf( '+ Running 1 task in stage: %d', $index ) );
-
 				# NOTE: This is an simple optimization, no need to create a new process for a single task.
 				my $task = shift( @{ $stage } );
 
-				$self->log()->debug( sprintf( '- Task: %s', $task->id() ) );
-				my $result= $task->run_wrapper( $context );
-
+				my $result = $task->run_wrapper( $context );
 				$results{ $task->id() } = $result;
 			}
 

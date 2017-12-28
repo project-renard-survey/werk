@@ -21,9 +21,7 @@ package CodeFlow {
 				code => sub {
 					my ( $t, $c ) = @_;
 
-					my $value = int( rand( $c->get_global( 'max_sleep' ) ) );
-					$t->log()->debug( sprintf( 'Sleeping for %d', $value ) );
-					return sleep( $value );
+					return sleep( int( rand( $c->get_global( 'max_sleep' ) ) ) );
 				}
 			);
 
@@ -38,11 +36,7 @@ package main {
 	use strict;
 	use warnings;
 
-	use Log::Log4perl qw( :easy );
-
 	use Werk::ExecutorFactory;
-
-	Log::Log4perl->easy_init( $DEBUG );
 
 	my $flow = CodeFlow->new(
 		title => 'CodeExample',
