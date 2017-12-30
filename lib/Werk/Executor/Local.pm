@@ -69,7 +69,6 @@ package Werk::Executor::Local {
 
 		my @stages = $self->get_execution_plan( $flow );
 
-		my $index = 0;
 		foreach my $stage ( @stages ) {
 			my %results = ();
 
@@ -100,8 +99,6 @@ package Werk::Executor::Local {
 				# TODO: Rebless stuff here ... if needed
 				$context->set_result( $id, $result );
 			}
-
-			$index++;
 		}
 
 		return $context;
