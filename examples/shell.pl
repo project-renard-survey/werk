@@ -46,6 +46,10 @@ package main {
 		description => 'Workflow example using Shell tasks',
 	);
 
-	Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } )
-		->execute( $flow );
+	Werk::ExecutorFactory->create( 'Local',
+		{
+			parallel_tasks => 5,
+			flow => $flow,
+		}
+	)->execute( {} );
 }

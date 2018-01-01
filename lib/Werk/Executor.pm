@@ -6,12 +6,31 @@ package Werk::Executor {
 	abstract( 'get_execution_plan' );
 	abstract( 'execute' );
 
+	has 'flow' => (
+		is => 'ro',
+		isa => 'Werk::Flow',
+		required => 1,
+	);
+
+	has 'execution_plan' => (
+		is => 'ro',
+		isa => 'ArrayRef',
+		lazy => 1,
+		default => sub {
+			my $self = shift();
+
+			return $self->get_execution_plan(
+				$self->flow()
+			);
+		},
+	);
+
 	sub draw {
-		my ( $self, $flow, $output, $format ) = @_;
+		my ( $self, $output, $format ) = @_;
 
 		my $graph = GraphViz2->new(
 			global => {
-				name => $flow->title(),
+				name => $self->flow()->title(),
 				directed => 1,
 			},
 			node => {
@@ -20,7 +39,7 @@ package Werk::Executor {
 			},
 		);
 
-		my @stages = $self->get_execution_plan( $flow );
+		my @stages = @{ $self->execution_plan() };
 
 		my $previous = undef;
 		foreach my $index ( 0 .. scalar( @stages ) - 1 ) {

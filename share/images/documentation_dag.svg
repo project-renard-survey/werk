@@ -9,64 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 604)">
 <title>DataWorkflow</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-604 796,-604 796,4 -4,4"/>
-<!-- ner_company -->
-<g id="node1" class="node"><title>ner_company</title>
-<path fill="none" stroke="black" d="M12,-212.5C12,-212.5 240,-212.5 240,-212.5 246,-212.5 252,-218.5 252,-224.5 252,-224.5 252,-269.5 252,-269.5 252,-275.5 246,-281.5 240,-281.5 240,-281.5 12,-281.5 12,-281.5 6,-281.5 0,-275.5 0,-269.5 0,-269.5 0,-224.5 0,-224.5 0,-218.5 6,-212.5 12,-212.5"/>
-<text text-anchor="middle" x="126" y="-266.3" font-family="Times,serif" font-size="14.00">ner_company</text>
-<polyline fill="none" stroke="black" points="0,-258.5 252,-258.5 "/>
-<text text-anchor="middle" x="126" y="-243.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::NER</text>
-<polyline fill="none" stroke="black" points="0,-235.5 252,-235.5 "/>
-<text text-anchor="middle" x="126" y="-220.3" font-family="Times,serif" font-size="14.00">No description</text>
-</g>
-<!-- aggregator_companies_address -->
-<g id="node5" class="node"><title>aggregator_companies_address</title>
-<path fill="none" stroke="black" d="M51.5,-106.5C51.5,-106.5 374.5,-106.5 374.5,-106.5 380.5,-106.5 386.5,-112.5 386.5,-118.5 386.5,-118.5 386.5,-163.5 386.5,-163.5 386.5,-169.5 380.5,-175.5 374.5,-175.5 374.5,-175.5 51.5,-175.5 51.5,-175.5 45.5,-175.5 39.5,-169.5 39.5,-163.5 39.5,-163.5 39.5,-118.5 39.5,-118.5 39.5,-112.5 45.5,-106.5 51.5,-106.5"/>
-<text text-anchor="middle" x="213" y="-160.3" font-family="Times,serif" font-size="14.00">aggregator_companies_address</text>
-<polyline fill="none" stroke="black" points="39.5,-152.5 386.5,-152.5 "/>
-<text text-anchor="middle" x="213" y="-137.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::RelationExtractor</text>
-<polyline fill="none" stroke="black" points="39.5,-129.5 386.5,-129.5 "/>
-<text text-anchor="middle" x="213" y="-114.3" font-family="Times,serif" font-size="14.00">No description</text>
-</g>
-<!-- ner_company&#45;&gt;aggregator_companies_address -->
-<g id="edge5" class="edge"><title>ner_company&#45;&gt;aggregator_companies_address</title>
-<path fill="none" stroke="black" d="M154.246,-212.234C161.921,-203.059 170.322,-193.018 178.309,-183.47"/>
-<polygon fill="black" stroke="black" points="181.163,-185.512 184.895,-175.596 175.794,-181.021 181.163,-185.512"/>
-</g>
-<!-- aggregator_people_address -->
-<g id="node8" class="node"><title>aggregator_people_address</title>
-<path fill="none" stroke="black" d="M416.5,-106.5C416.5,-106.5 739.5,-106.5 739.5,-106.5 745.5,-106.5 751.5,-112.5 751.5,-118.5 751.5,-118.5 751.5,-163.5 751.5,-163.5 751.5,-169.5 745.5,-175.5 739.5,-175.5 739.5,-175.5 416.5,-175.5 416.5,-175.5 410.5,-175.5 404.5,-169.5 404.5,-163.5 404.5,-163.5 404.5,-118.5 404.5,-118.5 404.5,-112.5 410.5,-106.5 416.5,-106.5"/>
-<text text-anchor="middle" x="578" y="-160.3" font-family="Times,serif" font-size="14.00">aggregator_people_address</text>
-<polyline fill="none" stroke="black" points="404.5,-152.5 751.5,-152.5 "/>
-<text text-anchor="middle" x="578" y="-137.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::RelationExtractor</text>
-<polyline fill="none" stroke="black" points="404.5,-129.5 751.5,-129.5 "/>
-<text text-anchor="middle" x="578" y="-114.3" font-family="Times,serif" font-size="14.00">No description</text>
-</g>
-<!-- ner_company&#45;&gt;aggregator_people_address -->
-<g id="edge4" class="edge"><title>ner_company&#45;&gt;aggregator_people_address</title>
-<path fill="none" stroke="black" d="M252.086,-214.121C255.085,-213.403 258.06,-212.695 261,-212 309.877,-200.451 363.137,-188.461 411.806,-177.735"/>
-<polygon fill="black" stroke="black" points="412.782,-181.104 421.797,-175.537 411.278,-174.268 412.782,-181.104"/>
-</g>
-<!-- ner_address -->
-<g id="node2" class="node"><title>ner_address</title>
-<path fill="none" stroke="black" d="M282,-212.5C282,-212.5 510,-212.5 510,-212.5 516,-212.5 522,-218.5 522,-224.5 522,-224.5 522,-269.5 522,-269.5 522,-275.5 516,-281.5 510,-281.5 510,-281.5 282,-281.5 282,-281.5 276,-281.5 270,-275.5 270,-269.5 270,-269.5 270,-224.5 270,-224.5 270,-218.5 276,-212.5 282,-212.5"/>
-<text text-anchor="middle" x="396" y="-266.3" font-family="Times,serif" font-size="14.00">ner_address</text>
-<polyline fill="none" stroke="black" points="270,-258.5 522,-258.5 "/>
-<text text-anchor="middle" x="396" y="-243.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::NER</text>
-<polyline fill="none" stroke="black" points="270,-235.5 522,-235.5 "/>
-<text text-anchor="middle" x="396" y="-220.3" font-family="Times,serif" font-size="14.00">No description</text>
-</g>
-<!-- ner_address&#45;&gt;aggregator_companies_address -->
-<g id="edge10" class="edge"><title>ner_address&#45;&gt;aggregator_companies_address</title>
-<path fill="none" stroke="black" d="M336.838,-212.378C318.979,-202.229 299.235,-191.008 280.857,-180.563"/>
-<polygon fill="black" stroke="black" points="282.382,-177.404 271.958,-175.506 278.923,-183.49 282.382,-177.404"/>
-</g>
-<!-- ner_address&#45;&gt;aggregator_people_address -->
-<g id="edge11" class="edge"><title>ner_address&#45;&gt;aggregator_people_address</title>
-<path fill="none" stroke="black" d="M454.839,-212.378C472.6,-202.229 492.236,-191.008 510.514,-180.563"/>
-<polygon fill="black" stroke="black" points="512.418,-183.507 519.364,-175.506 508.945,-177.429 512.418,-183.507"/>
-</g>
 <!-- extractor -->
-<g id="node3" class="node"><title>extractor</title>
+<g id="node1" class="node"><title>extractor</title>
 <path fill="none" stroke="black" d="M260,-424.5C260,-424.5 532,-424.5 532,-424.5 538,-424.5 544,-430.5 544,-436.5 544,-436.5 544,-481.5 544,-481.5 544,-487.5 538,-493.5 532,-493.5 532,-493.5 260,-493.5 260,-493.5 254,-493.5 248,-487.5 248,-481.5 248,-481.5 248,-436.5 248,-436.5 248,-430.5 254,-424.5 260,-424.5"/>
 <text text-anchor="middle" x="396" y="-478.3" font-family="Times,serif" font-size="14.00">extractor</text>
 <polyline fill="none" stroke="black" points="248,-470.5 544,-470.5 "/>
@@ -75,7 +19,7 @@
 <text text-anchor="middle" x="396" y="-432.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
 <!-- tokenizer -->
-<g id="node6" class="node"><title>tokenizer</title>
+<g id="node2" class="node"><title>tokenizer</title>
 <path fill="none" stroke="black" d="M264,-318.5C264,-318.5 528,-318.5 528,-318.5 534,-318.5 540,-324.5 540,-330.5 540,-330.5 540,-375.5 540,-375.5 540,-381.5 534,-387.5 528,-387.5 528,-387.5 264,-387.5 264,-387.5 258,-387.5 252,-381.5 252,-375.5 252,-375.5 252,-330.5 252,-330.5 252,-324.5 258,-318.5 264,-318.5"/>
 <text text-anchor="middle" x="396" y="-372.3" font-family="Times,serif" font-size="14.00">tokenizer</text>
 <polyline fill="none" stroke="black" points="252,-364.5 540,-364.5 "/>
@@ -84,28 +28,60 @@
 <text text-anchor="middle" x="396" y="-326.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
 <!-- extractor&#45;&gt;tokenizer -->
-<g id="edge6" class="edge"><title>extractor&#45;&gt;tokenizer</title>
+<g id="edge5" class="edge"><title>extractor&#45;&gt;tokenizer</title>
 <path fill="none" stroke="black" d="M396,-424.234C396,-415.793 396,-406.619 396,-397.77"/>
 <polygon fill="black" stroke="black" points="399.5,-397.596 396,-387.596 392.5,-397.596 399.5,-397.596"/>
 </g>
 <!-- ner_person -->
 <g id="node4" class="node"><title>ner_person</title>
+<path fill="none" stroke="black" d="M12,-212.5C12,-212.5 240,-212.5 240,-212.5 246,-212.5 252,-218.5 252,-224.5 252,-224.5 252,-269.5 252,-269.5 252,-275.5 246,-281.5 240,-281.5 240,-281.5 12,-281.5 12,-281.5 6,-281.5 0,-275.5 0,-269.5 0,-269.5 0,-224.5 0,-224.5 0,-218.5 6,-212.5 12,-212.5"/>
+<text text-anchor="middle" x="126" y="-266.3" font-family="Times,serif" font-size="14.00">ner_person</text>
+<polyline fill="none" stroke="black" points="0,-258.5 252,-258.5 "/>
+<text text-anchor="middle" x="126" y="-243.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::NER</text>
+<polyline fill="none" stroke="black" points="0,-235.5 252,-235.5 "/>
+<text text-anchor="middle" x="126" y="-220.3" font-family="Times,serif" font-size="14.00">No description</text>
+</g>
+<!-- tokenizer&#45;&gt;ner_person -->
+<g id="edge4" class="edge"><title>tokenizer&#45;&gt;ner_person</title>
+<path fill="none" stroke="black" d="M308.712,-318.378C281.165,-307.767 250.578,-295.985 222.432,-285.144"/>
+<polygon fill="black" stroke="black" points="223.578,-281.835 212.988,-281.506 221.062,-288.367 223.578,-281.835"/>
+</g>
+<!-- ner_address -->
+<g id="node5" class="node"><title>ner_address</title>
+<path fill="none" stroke="black" d="M282,-212.5C282,-212.5 510,-212.5 510,-212.5 516,-212.5 522,-218.5 522,-224.5 522,-224.5 522,-269.5 522,-269.5 522,-275.5 516,-281.5 510,-281.5 510,-281.5 282,-281.5 282,-281.5 276,-281.5 270,-275.5 270,-269.5 270,-269.5 270,-224.5 270,-224.5 270,-218.5 276,-212.5 282,-212.5"/>
+<text text-anchor="middle" x="396" y="-266.3" font-family="Times,serif" font-size="14.00">ner_address</text>
+<polyline fill="none" stroke="black" points="270,-258.5 522,-258.5 "/>
+<text text-anchor="middle" x="396" y="-243.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::NER</text>
+<polyline fill="none" stroke="black" points="270,-235.5 522,-235.5 "/>
+<text text-anchor="middle" x="396" y="-220.3" font-family="Times,serif" font-size="14.00">No description</text>
+</g>
+<!-- tokenizer&#45;&gt;ner_address -->
+<g id="edge11" class="edge"><title>tokenizer&#45;&gt;ner_address</title>
+<path fill="none" stroke="black" d="M396,-318.234C396,-309.793 396,-300.619 396,-291.77"/>
+<polygon fill="black" stroke="black" points="399.5,-291.596 396,-281.596 392.5,-291.596 399.5,-291.596"/>
+</g>
+<!-- ner_company -->
+<g id="node6" class="node"><title>ner_company</title>
 <path fill="none" stroke="black" d="M552,-212.5C552,-212.5 780,-212.5 780,-212.5 786,-212.5 792,-218.5 792,-224.5 792,-224.5 792,-269.5 792,-269.5 792,-275.5 786,-281.5 780,-281.5 780,-281.5 552,-281.5 552,-281.5 546,-281.5 540,-275.5 540,-269.5 540,-269.5 540,-224.5 540,-224.5 540,-218.5 546,-212.5 552,-212.5"/>
-<text text-anchor="middle" x="666" y="-266.3" font-family="Times,serif" font-size="14.00">ner_person</text>
+<text text-anchor="middle" x="666" y="-266.3" font-family="Times,serif" font-size="14.00">ner_company</text>
 <polyline fill="none" stroke="black" points="540,-258.5 792,-258.5 "/>
 <text text-anchor="middle" x="666" y="-243.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::NER</text>
 <polyline fill="none" stroke="black" points="540,-235.5 792,-235.5 "/>
 <text text-anchor="middle" x="666" y="-220.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
-<!-- ner_person&#45;&gt;aggregator_companies_address -->
-<g id="edge12" class="edge"><title>ner_person&#45;&gt;aggregator_companies_address</title>
-<path fill="none" stroke="black" d="M539.915,-214.118C536.916,-213.401 533.94,-212.694 531,-212 481.972,-200.433 428.545,-188.437 379.723,-177.712"/>
-<polygon fill="black" stroke="black" points="380.218,-174.237 369.7,-175.514 378.718,-181.075 380.218,-174.237"/>
+<!-- tokenizer&#45;&gt;ner_company -->
+<g id="edge8" class="edge"><title>tokenizer&#45;&gt;ner_company</title>
+<path fill="none" stroke="black" d="M483.288,-318.378C510.835,-307.767 541.422,-295.985 569.568,-285.144"/>
+<polygon fill="black" stroke="black" points="570.938,-288.367 579.012,-281.506 568.422,-281.835 570.938,-288.367"/>
 </g>
-<!-- ner_person&#45;&gt;aggregator_people_address -->
-<g id="edge2" class="edge"><title>ner_person&#45;&gt;aggregator_people_address</title>
-<path fill="none" stroke="black" d="M637.429,-212.234C629.666,-203.059 621.169,-193.018 613.09,-183.47"/>
-<polygon fill="black" stroke="black" points="615.559,-180.969 606.428,-175.596 610.215,-185.491 615.559,-180.969"/>
+<!-- aggregator_people_address -->
+<g id="node3" class="node"><title>aggregator_people_address</title>
+<path fill="none" stroke="black" d="M51.5,-106.5C51.5,-106.5 374.5,-106.5 374.5,-106.5 380.5,-106.5 386.5,-112.5 386.5,-118.5 386.5,-118.5 386.5,-163.5 386.5,-163.5 386.5,-169.5 380.5,-175.5 374.5,-175.5 374.5,-175.5 51.5,-175.5 51.5,-175.5 45.5,-175.5 39.5,-169.5 39.5,-163.5 39.5,-163.5 39.5,-118.5 39.5,-118.5 39.5,-112.5 45.5,-106.5 51.5,-106.5"/>
+<text text-anchor="middle" x="213" y="-160.3" font-family="Times,serif" font-size="14.00">aggregator_people_address</text>
+<polyline fill="none" stroke="black" points="39.5,-152.5 386.5,-152.5 "/>
+<text text-anchor="middle" x="213" y="-137.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::RelationExtractor</text>
+<polyline fill="none" stroke="black" points="39.5,-129.5 386.5,-129.5 "/>
+<text text-anchor="middle" x="213" y="-114.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
 <!-- save -->
 <g id="node7" class="node"><title>save</title>
@@ -116,33 +92,52 @@
 <polyline fill="none" stroke="black" points="268,-23.5 522,-23.5 "/>
 <text text-anchor="middle" x="395" y="-8.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
-<!-- aggregator_companies_address&#45;&gt;save -->
-<g id="edge1" class="edge"><title>aggregator_companies_address&#45;&gt;save</title>
+<!-- aggregator_people_address&#45;&gt;save -->
+<g id="edge6" class="edge"><title>aggregator_people_address&#45;&gt;save</title>
 <path fill="none" stroke="black" d="M271.839,-106.378C289.6,-96.2287 309.236,-85.0078 327.514,-74.5633"/>
 <polygon fill="black" stroke="black" points="329.418,-77.5067 336.364,-69.5064 325.945,-71.429 329.418,-77.5067"/>
 </g>
-<!-- tokenizer&#45;&gt;ner_company -->
-<g id="edge7" class="edge"><title>tokenizer&#45;&gt;ner_company</title>
-<path fill="none" stroke="black" d="M308.712,-318.378C281.165,-307.767 250.578,-295.985 222.432,-285.144"/>
-<polygon fill="black" stroke="black" points="223.578,-281.835 212.988,-281.506 221.062,-288.367 223.578,-281.835"/>
+<!-- ner_person&#45;&gt;aggregator_people_address -->
+<g id="edge1" class="edge"><title>ner_person&#45;&gt;aggregator_people_address</title>
+<path fill="none" stroke="black" d="M154.246,-212.234C161.921,-203.059 170.322,-193.018 178.309,-183.47"/>
+<polygon fill="black" stroke="black" points="181.163,-185.512 184.895,-175.596 175.794,-181.021 181.163,-185.512"/>
 </g>
-<!-- tokenizer&#45;&gt;ner_address -->
-<g id="edge9" class="edge"><title>tokenizer&#45;&gt;ner_address</title>
-<path fill="none" stroke="black" d="M396,-318.234C396,-309.793 396,-300.619 396,-291.77"/>
-<polygon fill="black" stroke="black" points="399.5,-291.596 396,-281.596 392.5,-291.596 399.5,-291.596"/>
+<!-- aggregator_companies_address -->
+<g id="node9" class="node"><title>aggregator_companies_address</title>
+<path fill="none" stroke="black" d="M416.5,-106.5C416.5,-106.5 739.5,-106.5 739.5,-106.5 745.5,-106.5 751.5,-112.5 751.5,-118.5 751.5,-118.5 751.5,-163.5 751.5,-163.5 751.5,-169.5 745.5,-175.5 739.5,-175.5 739.5,-175.5 416.5,-175.5 416.5,-175.5 410.5,-175.5 404.5,-169.5 404.5,-163.5 404.5,-163.5 404.5,-118.5 404.5,-118.5 404.5,-112.5 410.5,-106.5 416.5,-106.5"/>
+<text text-anchor="middle" x="578" y="-160.3" font-family="Times,serif" font-size="14.00">aggregator_companies_address</text>
+<polyline fill="none" stroke="black" points="404.5,-152.5 751.5,-152.5 "/>
+<text text-anchor="middle" x="578" y="-137.3" font-family="Times,serif" font-size="14.00">Werk::Task::Common::NLP::RelationExtractor</text>
+<polyline fill="none" stroke="black" points="404.5,-129.5 751.5,-129.5 "/>
+<text text-anchor="middle" x="578" y="-114.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
-<!-- tokenizer&#45;&gt;ner_person -->
-<g id="edge8" class="edge"><title>tokenizer&#45;&gt;ner_person</title>
-<path fill="none" stroke="black" d="M483.288,-318.378C510.835,-307.767 541.422,-295.985 569.568,-285.144"/>
-<polygon fill="black" stroke="black" points="570.938,-288.367 579.012,-281.506 568.422,-281.835 570.938,-288.367"/>
+<!-- ner_person&#45;&gt;aggregator_companies_address -->
+<g id="edge3" class="edge"><title>ner_person&#45;&gt;aggregator_companies_address</title>
+<path fill="none" stroke="black" d="M252.086,-214.121C255.085,-213.403 258.06,-212.695 261,-212 309.877,-200.451 363.137,-188.461 411.806,-177.735"/>
+<polygon fill="black" stroke="black" points="412.782,-181.104 421.797,-175.537 411.278,-174.268 412.782,-181.104"/>
 </g>
-<!-- aggregator_people_address&#45;&gt;save -->
-<g id="edge3" class="edge"><title>aggregator_people_address&#45;&gt;save</title>
-<path fill="none" stroke="black" d="M518.838,-106.378C500.979,-96.2287 481.235,-85.0078 462.857,-74.5633"/>
-<polygon fill="black" stroke="black" points="464.382,-71.4045 453.958,-69.5064 460.923,-77.4903 464.382,-71.4045"/>
+<!-- ner_address&#45;&gt;aggregator_people_address -->
+<g id="edge9" class="edge"><title>ner_address&#45;&gt;aggregator_people_address</title>
+<path fill="none" stroke="black" d="M336.838,-212.378C318.979,-202.229 299.235,-191.008 280.857,-180.563"/>
+<polygon fill="black" stroke="black" points="282.382,-177.404 271.958,-175.506 278.923,-183.49 282.382,-177.404"/>
+</g>
+<!-- ner_address&#45;&gt;aggregator_companies_address -->
+<g id="edge7" class="edge"><title>ner_address&#45;&gt;aggregator_companies_address</title>
+<path fill="none" stroke="black" d="M454.839,-212.378C472.6,-202.229 492.236,-191.008 510.514,-180.563"/>
+<polygon fill="black" stroke="black" points="512.418,-183.507 519.364,-175.506 508.945,-177.429 512.418,-183.507"/>
+</g>
+<!-- ner_company&#45;&gt;aggregator_people_address -->
+<g id="edge12" class="edge"><title>ner_company&#45;&gt;aggregator_people_address</title>
+<path fill="none" stroke="black" d="M539.915,-214.118C536.916,-213.401 533.94,-212.694 531,-212 481.972,-200.433 428.545,-188.437 379.723,-177.712"/>
+<polygon fill="black" stroke="black" points="380.218,-174.237 369.7,-175.514 378.718,-181.075 380.218,-174.237"/>
+</g>
+<!-- ner_company&#45;&gt;aggregator_companies_address -->
+<g id="edge13" class="edge"><title>ner_company&#45;&gt;aggregator_companies_address</title>
+<path fill="none" stroke="black" d="M637.429,-212.234C629.666,-203.059 621.169,-193.018 613.09,-183.47"/>
+<polygon fill="black" stroke="black" points="615.559,-180.969 606.428,-175.596 610.215,-185.491 615.559,-180.969"/>
 </g>
 <!-- download -->
-<g id="node9" class="node"><title>download</title>
+<g id="node8" class="node"><title>download</title>
 <path fill="none" stroke="black" d="M288,-530.5C288,-530.5 504,-530.5 504,-530.5 510,-530.5 516,-536.5 516,-542.5 516,-542.5 516,-587.5 516,-587.5 516,-593.5 510,-599.5 504,-599.5 504,-599.5 288,-599.5 288,-599.5 282,-599.5 276,-593.5 276,-587.5 276,-587.5 276,-542.5 276,-542.5 276,-536.5 282,-530.5 288,-530.5"/>
 <text text-anchor="middle" x="396" y="-584.3" font-family="Times,serif" font-size="14.00">download</text>
 <polyline fill="none" stroke="black" points="276,-576.5 516,-576.5 "/>
@@ -151,9 +146,14 @@
 <text text-anchor="middle" x="396" y="-538.3" font-family="Times,serif" font-size="14.00">No description</text>
 </g>
 <!-- download&#45;&gt;extractor -->
-<g id="edge13" class="edge"><title>download&#45;&gt;extractor</title>
+<g id="edge10" class="edge"><title>download&#45;&gt;extractor</title>
 <path fill="none" stroke="black" d="M396,-530.234C396,-521.793 396,-512.619 396,-503.77"/>
 <polygon fill="black" stroke="black" points="399.5,-503.596 396,-493.596 392.5,-503.596 399.5,-503.596"/>
+</g>
+<!-- aggregator_companies_address&#45;&gt;save -->
+<g id="edge2" class="edge"><title>aggregator_companies_address&#45;&gt;save</title>
+<path fill="none" stroke="black" d="M518.838,-106.378C500.979,-96.2287 481.235,-85.0078 462.857,-74.5633"/>
+<polygon fill="black" stroke="black" points="464.382,-71.4045 453.958,-69.5064 460.923,-77.4903 464.382,-71.4045"/>
 </g>
 </g>
 </svg>

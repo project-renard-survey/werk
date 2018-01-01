@@ -9,6 +9,8 @@ package Werk::Task {
 
 	use Werk::Exception::TaskTimeout;
 
+	with 'Werk::Role::EventEmitter';
+
 	has 'id' => (
 		is => 'ro',
 		isa => 'Str',
@@ -56,7 +58,13 @@ package Werk::Task {
 
 				my $out = Time::Out::timeout(
 					$self->timeout(),
-					sub { $self->run( $context ) }
+					sub {
+						$self->emit( 'before_task', $context );
+						my $result = $self->run( $context );
+						$self->emit( 'after_task', $context, $result );
+
+						return $result;
+					}
 				);
 
 				Werk::Exception::TaskTimeout->throw(
@@ -81,6 +89,12 @@ __END__
 =head1 NAME
 
 Werk::Task
+
+=head1 EVENTS
+
+=head2 before_task
+
+=head2 after_task
 
 =head1 ATTRIBUTES
 

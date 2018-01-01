@@ -43,6 +43,6 @@ package main {
 		description => 'Workflow using Code tasks',
 	);
 
-	Werk::ExecutorFactory->create( 'Local' )
-		->execute( $flow, { max_sleep => 5 } );
+	Werk::ExecutorFactory->create( 'Local', { flow => $flow } )
+		->execute( { max_sleep => 5 } );
 }

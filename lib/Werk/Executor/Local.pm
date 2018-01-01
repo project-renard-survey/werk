@@ -3,8 +3,8 @@ package Werk::Executor::Local {
 
 	extends 'Werk::Executor';
 
-	use forks ( exit => 'threads_only' );
-	use forks::shared;
+	use threads ( exit => 'threads_only' );
+	use threads::shared;
 
 	use Werk::Context;
 	use Werk::Exception::ThreadExecution;
@@ -56,18 +56,18 @@ package Werk::Executor::Local {
 			@results = @batches;
 		}
 
-		return @results;
+		return \@results;
 	}
 
 	sub execute {
-		my ( $self, $flow, $params ) = @_;
+		my ( $self, $params ) = @_;
 
 		my $context = Werk::Context->new(
 			executor => ref( $self ),
 			globals => $params || {},
 		);
 
-		my @stages = $self->get_execution_plan( $flow );
+		my @stages = @{ $self->execution_plan() };
 
 		foreach my $stage ( @stages ) {
 			my %results = ();
@@ -85,19 +85,14 @@ package Werk::Executor::Local {
 						error => $thread->error()
 					) if( $thread->error() );
 
-					$results{ $id } = $result;
+					$context->set_result( $id, $result );
 				}
 			} else {
 				# NOTE: This is an simple optimization, no need to create a new process for a single task.
-				my $task = shift( @{ $stage } );
+				my $task = $stage->[0];
 
 				my $result = $task->run_wrapper( $context );
-				$results{ $task->id() } = $result;
-			}
-
-			while( my ( $id, $result ) = each( %results ) ) {
-				# TODO: Rebless stuff here ... if needed
-				$context->set_result( $id, $result );
+				$context->set_result( $task->id(), $result );
 			}
 		}
 

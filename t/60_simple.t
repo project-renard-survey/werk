@@ -70,13 +70,18 @@ can_ok( $flow, qw( add_deps  ) );
 		alias => 'Batman',
 	};
 
-	my $executor = Werk::ExecutorFactory->create( 'Local' );
+	my $executor = Werk::ExecutorFactory->create( 'Local',
+		{
+			flow => $flow,
+		}
+	);
+
 	isa_ok( $executor, 'Werk::Executor' );
 	can_ok( $executor, qw( execute ) );
 
-	# $scheduler->draw( $flow, 'svg', 'plan.svg' );
+	# $scheduler->draw( 'svg', 'plan.svg' );
 
-	my $context = $executor->execute( $flow, $data );
+	my $context = $executor->execute( $data );
 
 	# use Data::Dumper;
 	# warn( Dumper( $context ) );
