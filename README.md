@@ -108,8 +108,14 @@ my @urls = (
 	'http://domain.com/docs/1000.html',
 );
 
-my $executor = Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } );
-$executor->execute( $flow, { url => $_ } )
+my $executor = Werk::ExecutorFactory->create( 'Local',
+	{
+		parallel_tasks => 5,
+		flow => $flow
+	}
+);
+
+$executor->execute( { url => $_ } )
 	foreach( @urls );
 ```
 
