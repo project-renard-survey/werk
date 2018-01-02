@@ -59,10 +59,6 @@ package main {
 		description => 'None',
 	);
 
-	Werk::ExecutorFactory->create( 'Local',
-		{
-			parallel_tasks => 5,
-			flow => $flow,
-		}
-	)->execute( {} );
+	Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 5 } )
+		->execute( $flow, {} );
 }

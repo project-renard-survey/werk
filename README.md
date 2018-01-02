@@ -110,12 +110,11 @@ my @urls = (
 
 my $executor = Werk::ExecutorFactory->create( 'Local',
 	{
-		parallel_tasks => 5,
-		flow => $flow
+		parallel_tasks => 5
 	}
 );
 
-$executor->execute( { url => $_ } )
+$executor->execute( $flow, { url => $_ } )
 	foreach( @urls );
 ```
 

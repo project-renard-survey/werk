@@ -23,7 +23,8 @@ package Werk::Executor::Local {
 	sub get_execution_plan {
 		my ( $self, $flow ) = @_;
 
-		my %tasks = map { $_->id() => $_ } $flow->graph()->vertices();
+		my %tasks = map { $_->id() => $_ }
+			$flow->graph()->vertices();
 
 		my %ba;
 		foreach my $edge ( $flow->graph()->edges() ) {
@@ -60,14 +61,14 @@ package Werk::Executor::Local {
 	}
 
 	sub execute {
-		my ( $self, $params ) = @_;
+		my ( $self, $flow, $params ) = @_;
 
 		my $context = Werk::Context->new(
 			executor => ref( $self ),
 			globals => $params || {},
 		);
 
-		my @stages = @{ $self->execution_plan() };
+		my @stages = @{ $self->get_execution_plan( $flow ) };
 
 		foreach my $stage ( @stages ) {
 			my %results = ();

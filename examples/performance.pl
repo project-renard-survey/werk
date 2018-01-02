@@ -61,16 +61,13 @@ package main {
 	);
 
 	printf( "Executing flow with %d workers\n", $workers );
-	my $executor = Werk::Executor::Local->new(
-		parallel_tasks => $workers,
-		flow => $flow,
-	);
+	my $executor = Werk::Executor::Local->new( parallel_tasks => $workers );
 
 	# $executor->draw( 'performance.plan.svg' );
 
 	foreach my $index ( 1 .. $times ) {
 		my $start = time();
-		$executor->execute( {} );
+		$executor->execute( $flow, {} );
 		printf( "Total execution time: %f on run %d\n",
 			( time() - $start ),
 			$index,

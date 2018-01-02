@@ -137,10 +137,6 @@ package main {
 
 	$flow->draw( 'share/images/documentation_dag.svg' );
 
-	Werk::ExecutorFactory->create( 'Local',
-		{
-			parallel_tasks => 0,
-			flow => $flow,
-		}
-	)->draw( 'share/images/documentation_plan.svg' )
+	Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 0 } )
+		->draw( $flow, 'share/images/documentation_plan.svg' );
 }
