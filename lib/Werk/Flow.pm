@@ -38,12 +38,22 @@ package Werk::Flow {
 
 	sub get_deps { shift()->graph()->edges() }
 
-	sub add_deps {
+	sub add_deps { shift()->add_deps_down( @_ ) }
+
+	sub add_deps_down {
 		my ( $self, $from, @to ) = @_;
 
 		$self->graph()->add_edge( $from, $_ )
 			foreach( @to );
 	}
+
+	sub add_deps_up {
+		my ( $self, $to, @from ) = @_;
+
+		$self->graph()->add_edge( $_ => $to )
+			foreach( @from )
+	}
+
 
 	sub draw {
 		my ( $self, $output, $format ) = @_;
@@ -140,6 +150,10 @@ Werk::Flow
 =head2 get_deps
 
 =head2 add_deps
+
+=head2 add_deps_up
+
+=head2 add_deps_down
 
 =head2 draw
 

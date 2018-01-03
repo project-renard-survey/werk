@@ -9,7 +9,7 @@ package CrawlFlow {
 	use Mojo::ByteStream qw( b );
 
 	use Werk::Task::Code;
-	use Werk::Task::Dumper;
+	use Werk::Task::Dummy;
 
 	sub BUILD {
 		my $self = shift();
@@ -20,13 +20,23 @@ package CrawlFlow {
 		my $people = Werk::Task::Code->new( id => 'people', code => \&people );
 		my $times = Werk::Task::Code->new( id => 'times', code => \&times );
 
-		my $save = Werk::Task::Dumper->new( id => 'save' );
+		my $save = Werk::Task::Dummy->new( id => 'save' );
 
 		$self->add_deps( $download, $content );
 		$self->add_deps( $content, $sentences, $people, $times );
-		$self->add_deps( $sentences, $save );
-		$self->add_deps( $people, $save );
-		$self->add_deps( $times, $save );
+		$self->add_deps_up( $save, $sentences, $people, $times );
+
+		foreach my $task ( $self->get_tasks() ) {
+			$task->on( before_task => sub {
+					printf( "Starting task %s\n", shift->id() );
+				}
+			);
+
+			$task->on( after_task => sub {
+					printf( "Done with %s\n", shift()->id() );
+				}
+			);
+		}
 	}
 
 	sub download {
