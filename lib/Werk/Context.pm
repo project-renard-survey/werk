@@ -2,6 +2,7 @@ package Werk::Context {
 	use Moose;
 
 	use Data::UUID;
+	use Data::PathSimple qw( get );
 
 	has 'session_id' => (
 		is => 'ro',
@@ -48,6 +49,18 @@ package Werk::Context {
 		default => sub { time() },
 	);
 
+	sub get_result_path {
+		my ( $self, $path ) = @_;
+
+		return get( $self->results(), $path || '/' );
+	}
+
+	sub get_global_path {
+		my ( $self, $path ) = @_;
+
+		return get( $self->globals(), $path || '/' );
+	}
+
 	__PACKAGE__->meta()->make_immutable();
 }
 
@@ -84,6 +97,10 @@ Werk::Context
 =head2 set_result
 
 =head2 has_result
+
+=head2 get_result_path
+
+=head2 get_global_path
 
 =head1 AUTHOR
 

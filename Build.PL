@@ -17,6 +17,7 @@ my $builder = Module::Build->new(
 	requires => {
 		'Capture::Tiny' => undef,
 		'Class::Load' => undef,
+		'Data::PathSimple' => undef,
 		'Data::UUID' => undef,
 		'File::Slurp' => undef,
 		'File::Temp' => undef,

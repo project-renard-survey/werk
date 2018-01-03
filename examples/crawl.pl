@@ -51,7 +51,7 @@ package CrawlFlow {
 	sub content {
 		my ( $t, $c ) = @_;
 
-		my $body = b( $c->get_result( 'download' ) )
+		my $body = b( $c->get_result_path( '/download' ) )
 			->encode();
 
 		return Mojo::UserAgent->new()
@@ -63,7 +63,7 @@ package CrawlFlow {
 	sub sentences {
 		my ( $t, $c ) = @_;
 
-		my $body = b( $c->get_result( 'content' ) )
+		my $body = b( $c->get_result_path( '/content' ) )
 			->encode();
 
 		return Mojo::UserAgent->new()
@@ -75,7 +75,7 @@ package CrawlFlow {
 	sub people {
 		my ( $t, $c ) = @_;
 
-		my $body = b( $c->get_result( 'content' ) )
+		my $body = b( $c->get_result_path( '/content' ) )
 			->encode();
 
 		return Mojo::UserAgent->new()
@@ -87,7 +87,7 @@ package CrawlFlow {
 	sub times {
 		my ( $t, $c ) = @_;
 
-		my $body = b( $c->get_result( 'content' ) )
+		my $body = b( $c->get_result_path( '/content' ) )
 			->encode();
 
 		return Mojo::UserAgent->new()
@@ -118,7 +118,7 @@ package main {
 
 	my $executor = Werk::ExecutorFactory->create( 'Local', { parallel_tasks => 0 } );
 
-	$executor->draw( $flow, 'crawl.plan.svg' );
+	# $executor->draw( $flow, 'crawl.plan.svg' );
 
 	foreach my $url ( @urls ) {
 		printf( "Processing: %s\n", $url );

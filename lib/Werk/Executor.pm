@@ -70,6 +70,8 @@ __END__
 
 Werk::Executor
 
+=head1 DESCRIPTION
+
 =head1 METHODS
 
 =head2 draw

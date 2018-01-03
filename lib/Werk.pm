@@ -14,6 +14,8 @@ __END__
 
 Werk
 
+=head1 DESCRIPTION
+
 =head1 METHODS
 
 =head1 AUTHOR

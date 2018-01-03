@@ -90,6 +90,10 @@ __END__
 
 Werk::Task
 
+=head1 DESCRIPTION
+
+Smallest unit of "werk", this is the base class for all the tasks implemented in Werk.
+
 =head1 EVENTS
 
 =head2 before_task

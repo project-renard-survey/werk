@@ -133,7 +133,11 @@ __END__
 
 =head1 NAME
 
-Werk::Flow
+Werk::Flow'
+
+=head1 DESCRIPTION
+
+This class is responsible of managing the relations between the tasks.
 
 =head1 ATTRIBUTES
 
